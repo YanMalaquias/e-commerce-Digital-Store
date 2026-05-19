@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="../css/ProductListdesign.css">
+    <link rel="stylesheet" href="../css/auth-modal.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header-conteiner">
+        <nav class="nav-header">
+            <a class="digital-store-header" href="#">
+                <img class="logo-digital" src="../assets/logo_digital_store.svg" alt="Logo Digital Store">
+                Digital Store
+            </a>
+<!-- lupa barra de pesquisa -->
+            <div class="search-container">
+                <div class="search-container">
+                    <input class="input-header" id="search-input" name="search" type="text" placeholder="Pesquisar produto...">
+                    <img class="search-icon" src="../assets/lupa.png" alt="Ícone de pesquisa">
+                </div>
+<!-- botão entrar e carrinho -->
+                <div class="style-button">
+                    <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar / Cadastrar</button>
+                    <img class="carrinho" src="../assets/img_carrinho.svg" alt="Ícone do Carrinho">
+                </div>
+            </div>
+        </nav>
+<!-- navegação entre páginas -->
+        <div class="navigation-header">
+            <ol class="ol-header">
+                <a href="../../Homepage.html">
+                    <li>Home</li>
+                </a>
+                <a href="Page-Producto.html">
+                    <li>Produtos</li>
+                </a>
+                <a href="ProductListdesign.html">
+                    <li>Categorias</li>
+                </a>
+               <a href="MeusPedidos.html">
+                    <li>Meus Pedidos</li>
+                </a>
+            </ol>
+        </div>
+    </header>
+<!--menu principal-->
+    <main class="main-container">
+        <section class="products">
+            <div class="products-header">
+                <p>Resultados para "Ténis" – 389 produtos</p>
+                <div class="sort">
+                   <!--<label for="sort">Ordenar por:</label>--> 
+                    <select id="sort">
+                        <option value="relevantes">Ordenar por: mais relevantes</option>
+                        <option value="preco">menor preço</option>
+                        <option value="avaliacoes">melhores avaliações</option>
+                    </select>
+                </div>
+            </div>
+            <!-- filtro e produtos -->
+            <div class="content-wrapper"> 
+                <section class="filters">
+                    <h4 class="line">Filtrar por</h4>
+                    <div class="filter-category">
+                        <h4>Marca</h4>
+                        <label><input type="checkbox" checked> Adidas</label>
+                        <label><input type="checkbox"> Calenciaga</label>
+                        <label><input type="checkbox" checked> K-Swiss</label>
+                        <label><input type="checkbox"> Nike</label>
+                        <label><input type="checkbox"> Puma</label>
+                    </div>
+                    <div class="filter-category">
+                        <h4>Categoria</h4>
+                        <label><input type="checkbox"> Esporte e lazer</label>
+                        <label><input type="checkbox"> Casual</label>
+                        <label><input type="checkbox"> Utilitário</label>
+                        <label><input type="checkbox"> Corrida</label>
+                    </div>
+                    <div class="filter-category">
+                        <h4>Gênero</h4>
+                        <label><input type="checkbox" checked> Masculino</label>
+                        <label><input type="checkbox" checked> Feminino</label>
+                        <label><input type="checkbox"> Unisex</label>
+                    </div>
+                    <div class="filter-category">
+                        <h4>Estado</h4>
+                        <label><input type="radio" name="estado" checked> Novo</label>
+                        <label><input type="radio" name="estado"> Usado</label>
+                    </div>
+                </section>
+                <!-- grid de produtos -->
+                <div class="product-grid"> 
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 1">
+                            <p class="discount">30% OFF</p> 
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 2">
+                            <p class="discount">30% OFF</p> 
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                        </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div><div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img class="products-img" src="../assets/Mask group.png" alt="Produto 3">
+                         </div>
+                        <div class="product-info">
+                            <p class="product-category">Tênis</p>
+                            <h6 class="product-name">K-Swiss V8 - Masculino</h6>
+                            <div class="product-price">
+                                <p class="original-price">$200</p>
+                                <p class="discounted-price">$100</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </section>
+    </main>
+
+    <!-- Footer -->
+
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; margin: 0px;">
+        <div id="footer_content"
+            style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+            <!-- Logo e descrição -->
+            <div class="footer-column" style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <!-- Logo antes do nome -->
+                    <img src="../assets/logo-footer.svg" alt="Logo Digital Store"
+                        style="width: 40px; height: 40px; margin-right: 10px;">
+                    <h2 style="margin: 0; font-size: 20px;">Digital Store</h2>
+                </div>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore.
+                </p>
+                <!-- Redes sociais -->
+                <div id="footer_social_midia" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Facebook.svg" alt="Facebook" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Istagram.svg" alt="Instagram" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Twiter.svg" alt="Twitter" style="width: 33px; height: 33px;">
+                    </a>
+                </div>
+            </div>
+            <!-- coluna de informações -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px; ">Informação</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Sobre Drip Store</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Segurança</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Wishlist</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Trabalhe conosco</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Meus Pedidos</a></li>
+                </ul>
+            </div>
+
+            <!-- coluna de categorias -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Categorias</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Camisetas</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Calças</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Bonés</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Headphones</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Tênis</a></li>
+                </ul>
+            </div>
+
+            <!-- coluna de contato -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Contato</h3>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE, 60150-161
+                </p>
+                <p style="color: #aaa; font-size: 14px;">(85) 3051-3411</p>
+            </div>
+        </div>
+
+        <!-- coluna de copyright -->
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="border-top: 1px solid #444; margin-bottom: 10px;"></div>
+            <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
+        </div>
+    </footer>
+</body>
+
+</html>

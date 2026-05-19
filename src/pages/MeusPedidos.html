@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos - Digital Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/Homepage.css">
+    <link rel="stylesheet" href="../css/auth-modal.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <!-- Aqui depois podemos adicionar um CSS específico, ex: meus-pedidos.css -->
+    <style>
+        .pedidos-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 50vh;
+        }
+        .pedidos-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header-conteiner">
+        <nav class="nav-header">
+            <a class="digital-store-header" href="../../Homepage.html">
+                <img class="logo-digital" src="../assets/logo_digital_store.svg" alt="Logo Digital Store">
+                Digital Store
+            </a>
+
+            <div class="search-container">
+                <div class="search-container">
+                    <input class="input-header" id="search-input" name="search" type="text" placeholder="Pesquisar produto...">
+                    <img class="search-icon" src="../assets/lupa.png" alt="Ícone de pesquisa">
+                </div>
+
+                <div class="style-button">
+                    <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar / Cadastrar</button>
+                    <div style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;">
+                        <img class="carrinho" src="../assets/img_carrinho.svg"   alt="Ícone do Carrinho">
+                        <a href="../pages/cart.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></a>
+                        <span id="cart-counter" style="position: absolute; top: -8px; right: -10px; background-color: #C92071; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="navigation-header">
+            <ol class="ol-header">
+                <a href="../../Homepage.html">
+                    <li>Home</li>
+                </a>
+                <a href="Page-Producto.html">
+                    <li>Produtos</li>
+                </a>
+                <a href="ProductListdesign.html">
+                    <li>Categorias</li>
+                </a>
+                <a href="../pages/MeusPedidos.html">
+                    <li>Meus Pedidos</li>
+                </a>
+            </ol>
+        </div>
+    </header>
+
+    <!-- Main Content: Meus Pedidos -->
+    <main class="pedidos-container">
+        <h2 class="pedidos-title">Meus Pedidos</h2>
+        <div id="pedidos-list">
+            <!-- Os pedidos serão renderizados aqui futuramente -->
+            <p>Você ainda não possui pedidos.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; margin: 0px;">
+        <div id="footer_content" style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+
+            <div class="footer-column" style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <img src="../assets/logo-footer.svg" alt="Logo Digital Store" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <h2 style="margin: 0; font-size: 20px;">Digital Store</h2>
+                </div>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore.
+                </p>
+
+                <div id="footer_social_midia" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Facebook.svg" alt="Facebook" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Istagram.svg" alt="Instagram" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Twiter.svg" alt="Twitter" style="width: 33px; height: 33px;">
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px; ">Informação</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Sobre Drip Store</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Segurança</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Wishlist</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Trabalhe conosco</a></li>
+                    <li><a href="MeusPedidos.html" style="color: #aaa; font-size: 14px; text-decoration: none;">Meus Pedidos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Categorias</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Camisetas</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Calças</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Bonés</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Headphones</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Tênis</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Contato</h3>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE, 60150-161
+                </p>
+                <p style="color: #aaa; font-size: 14px;">(85) 3051-3411</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="border-top: 1px solid #444; margin-bottom: 10px;"></div>
+            <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../js/app.js"></script>
+</body>
+
+</html>

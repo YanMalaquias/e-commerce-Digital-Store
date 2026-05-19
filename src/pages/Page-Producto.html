@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="../css/Page-Producto.css">
+    <link rel="stylesheet" href="../css/auth-modal.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+
+<body> 
+    <!-- Cabeçalho da página -->
+    <header class="header-conteiner">
+        <nav class="nav-header">
+<!-- Logo e nome da loja -->
+            <a class="digital-store-header" href="#">
+                <img class="logo-digital" src="../assets/logo_digital_store.svg" alt="Logo Digital Store">
+                Digital Store
+            </a>
+<!-- Barra de busca e botões -->
+            <div class="search-container">
+                <div class="search-container">
+                    <input class="input-header" id="search-input" name="search" type="text" placeholder="Pesquisar produto...">
+                    <img class="search-icon" src="../assets/lupa.png" alt="Ícone de pesquisa">
+                </div>
+<!-- Botões de autenticação e carrinho -->
+                <div class="style-button">
+                    <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar / Cadastrar</button>
+                    <img class="carrinho" src="../assets/img_carrinho.svg" alt="Ícone do Carrinho">
+                </div>
+            </div>
+        </nav>
+<!-- Navegação principal -->
+        <div class="navigation-header">
+            <ol class="ol-header">
+                <a href="../../Homepage.html">
+                    <li>Home</li>
+                </a>
+                <a href="Page-Producto.html">
+                    <li>Produtos</li>
+                </a>
+                <a href="ProductListdesign.html">
+                    <li>Categorias</li>
+                </a>
+                <a href="MeusPedidos.html">
+                    <li>Meus Pedidos</li>
+                </a>
+            </ol>
+        </div>
+</header>
+<!-- Conteúdo principal -->
+<main> 
+    <div class="container"> 
+        <!--filtro de produtos-->
+            <nav class="breadcrumbs">
+                <a href="#">Home</a> /
+                <a href="#">Produtos</a> /
+                <a href="#">Tênis</a> /
+                <a href="#">Nike</a> /
+                <a href="#">Tênis Nike Dunk Low Retro Masculino</a>
+            </nav>
+<!-- Informações do produto -->
+            <div class="product-info">
+                <div class="image-gallery">
+                    <div class="main-image">
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino ESQUERDA INCLINADO.png" alt="Tênis Nike Revolution 6"> 
+                    </div>
+                <!-- Miniaturas -->
+                    <div class="thumbnails">
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino DIREITA.png" alt="Tênis Nike Revolution 6 - Miniatura 1">
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino DE LADO.png" alt="Tênis Nike Revolution 6 - Miniatura 2">
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino CIMA.png" alt="Tênis Nike Revolution 6 - Miniatura 3"> 
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino TRASEIRA.png" alt="Tênis Nike Revolution 6 - Minuatura 4">
+                        <img src="../assets/Tênis Nike Dunk Low Retro Masculino ESQUERDA INCLINADO.png" alt="Tênis Nike Revolution 6 - Miniatura 5">
+                    </div>
+                </div>
+
+                <!-- Detalhes do produto -->
+                <div class="details">
+                    <h1>Tênis Nike Revolution 6 Next Nature Masculino</h1>
+                    <p class="category">Casual | Nike | REF: 38416711</p>
+                    <div class="rating">
+                        <span class="stars">★★★★☆</span> <span class="reviews">(92 avaliações)</span>
+                    </div>
+                    <p class="price">R$ 219,00 <span class="old-price">R$ 210,00</span></p> 
+                    <p class="description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,<br> quis nostrud exercitation ullamco.
+                    </p>
+
+                    <!-- Seleção de tamanho -->
+                    <div class="size-selector">
+                        <p>Tamanho</p>
+                        <div class="sizes">
+                            <span class="size" data-size="39">39</span>
+                            <span class="size" data-size="40">40</span>
+                            <span class="size active" data-size="41">41</span> 
+                            <span class="size" data-size="42">42</span>
+                            <span class="size" data-size="43">43</span>
+                        </div>
+                    </div>
+
+                    <!-- Seleção de cor -->
+                    <div class="color-selector">
+                        <p>Cor</p>
+                        <div class="colors">
+                            <span class="color color-blue" data-color="blue" title="Azul"></span>
+                            <span class="color color-red" data-color="red" title="Vermelho"></span> 
+                            <span class="color color-gray" data-color="gray" title="Cinza"></span>
+                            <span class="color color-purple" data-color="purple" title="Roxo"></span>
+                        </div>
+                    </div>
+
+                     <button class="buy-button">COMPRAR</button>
+                </div>
+            </div>
+        </div>
+
+    <!-- Produtos em alta -->
+    <section class="section-products">    
+        <div class="div-products">
+            <div class="div-products">
+                <div class="div-products-title">
+                    <h2 class="products-h2">Produtos em Alta</h2>
+                    <h3 class="products-h3">Ver todos</h3>
+                </div>
+    <!-- Linha de produtos pagina de produtos -->
+                <div class="div-products-line">
+    
+                    <div class="div-products-line-item">
+                        <div class="div-products-line-item1">
+                            <p class="products-p-off">30% OFF</p>
+                            <div class="div-products-img-div">
+                                <img class="products-img" src="../assets/Mask group.png">
+                            </div>
+                        </div>
+                        <div class="div-products-line-item2">
+                            <h6>
+                                <p class="products-p1">Tênis</p>
+                            </h6>
+                            <p class="products-p2">K-Swiss V8 - Masculino</p>
+                            <div class="products-price">
+                                <p class="products-p3"><s>$200</s></p>
+                                <p class="products-p4">$ 100</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="div-products-line-item">
+                        <div class="div-products-line-item1">
+                            <p class="products-p-off">30% OFF</p>
+                            <div class="div-products-img-div">
+                                <img class="products-img" src="../assets/Mask group.png">
+                            </div>
+                        </div>
+                        <div class="div-products-line-item2">
+                            <h6>
+                                <p class="products-p1">Tênis</p>
+                            </h6>
+                            <p class="products-p2">K-Swiss V8 - Masculino</p>
+                            <div class="products-price">
+                                <p class="products-p3"><s>$200</s></p>
+                                <p class="products-p4">$ 100</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="div-products-line-item">
+                        <div class="div-products-line-item1">
+                            <div class="div-products-img-div">
+                                <img class="products-img" src="../assets/Mask group.png">
+                            </div>
+                        </div>
+                        <div class="div-products-line-item2">
+                            <h6>
+                                <p class="products-p1">Tênis</p>
+                            </h6>
+                            <p class="products-p2">K-Swiss V8 - Masculino</p>
+                            <div class="products-price">
+                                <p class="products-p3"><s> $200</s></p>
+                                <p class="products-p4">$ 100</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="div-products-line-item">
+                        <div class="div-products-line-item1">
+                            <!-- <p class="products-p-off">30% OFF</p> -->
+                            <div class="div-products-img-div">
+                                <img class="products-img" src="../assets/Mask group.png">
+                            </div>
+                        </div>
+                        <div class="div-products-line-item2">
+                            <h6>
+                                <p class="products-p1">Tênis</p>
+                            </h6>
+                            <p class="products-p2">K-Swiss V8 - Masculino</p>
+                            <div class="products-price">
+                                <p class="products-p3"><s>$200</s></p>
+                                <p class="products-p4">$ 100</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </section>
+</main>
+    
+    <!-- atual footer -->
+
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; margin: 0px;">
+        <div id="footer_content"
+            style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+
+            <!-- Logo e descrição -->
+            <div class="footer-column" style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+
+                    <!-- Logo antes do nome -->
+                    <img src="../assets/logo-footer.svg" alt="Logo Digital Store"
+                        style="width: 40px; height: 40px; margin-right: 10px;">
+                    <h2 style="margin: 0; font-size: 20px;">Digital Store</h2>
+                </div>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore.
+                </p>
+
+                <!-- Redes sociais -->
+                <div id="footer_social_midia" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Facebook.svg" alt="Facebook" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Istagram.svg" alt="Instagram" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Twiter.svg" alt="Twitter" style="width: 33px; height: 33px;">
+                    </a>
+                </div>
+            </div>
+   <!-- Coluna de informações -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px; ">Informação</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Sobre Drip Store</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Segurança</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Wishlist</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Trabalhe conosco</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Meus Pedidos</a></li>
+                </ul>
+            </div>
+<!-- Coluna de categorias -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Categorias</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Camisetas</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Calças</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Bonés</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Headphones</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Tênis</a></li>
+                </ul>
+            </div>
+<!-- Coluna de contato -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Contato</h3>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE, 60150-161
+                </p>
+                <p style="color: #aaa; font-size: 14px;">(85) 3051-3411</p>
+            </div>
+        </div>
+<!-- Coluna de copyright -->
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="border-top: 1px solid #444; margin-bottom: 10px;"></div>
+            <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
+        </div>
+    </footer>
+    
+<!-- Scripts globais -->
+    <script src="../js/main.js"></script>
+    <script type="module" src="../js/app.js"></script>
+    
+</body>
+</html>

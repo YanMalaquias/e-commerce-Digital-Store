@@ -1,0 +1,230 @@
+:root {
+    --white: #FFFFFF;
+    --primary: #c92071; /*ROSA*/
+    --light-gray: #999999;
+    --light-gray-2: #E5E5E5;
+    --light-gray-3: #F5F5F5;
+    --dark-gray: #333333;
+    --dark-gray-2: #555555;
+    --dark-gray-3: #777777;
+}
+/*ESTILOS DO MODAL DE AUTENTICAÇÃO*/
+.auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+/*ESTILOS DO CONTEÚDO DO MODAL*/
+.auth-modal-content {
+    background-color: var(--white);
+    width: 100%;
+    max-width: 450px;
+    border-radius: 12px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/*ESTILOS DO BOTÃO DE FECHAR*/
+.auth-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--light-gray);
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*ESTILOS DO BOTÃO DE FECHAR - HOVER*/
+.auth-modal-close:hover {
+    color: var(--dark-gray-2);
+}
+
+/*ESTILOS DAS ABAS DE AUTENTICAÇÃO*/
+.auth-modal-tabs {
+    display: flex;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--light-gray-2);
+}
+
+/*ESTILOS DAS ABAS DE AUTENTICAÇÃO - INDIVIDUAIS*/
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--light-gray);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/*ESTILOS DAS ABAS DE AUTENTICAÇÃO - ATIVAS*/
+.auth-tab.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+}
+
+/*ESTILOS DAS ABAS DE AUTENTICAÇÃO - HOVER*/
+.auth-tab:hover:not(.active) {
+    color: var(--dark-gray-2);
+}
+
+/*ESTILOS DO FORMULÁRIO DE AUTENTICAÇÃO*/
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/*ESTILOS DOS CAMPOS DO FORMULÁRIO*/
+#auth-form input {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--light-gray-3);
+    border: 1px solid var(--light-gray-2);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/*ESTILOS DOS CAMPOS DO FORMULÁRIO - FOCO*/
+#auth-form input:focus {
+    border-color: var(--primary);
+}
+
+/*ESTILOS DAS LINHAS DO FORMULÁRIO*/
+.auth-form-row {
+    display: flex;
+    gap: 12px;
+}
+
+/*ESTILOS DOS CAMPOS DO FORMULÁRIO - LINHAS*/
+.auth-form-row input {
+    flex: 1;
+}
+
+/*ESTILOS DO LINK DE ESQUECI A SENHA*/
+.auth-forgot-password {
+    text-align: right;
+    margin-top: -8px;
+}
+
+/*ESTILOS DO LINK DE ESQUECI A SENHA - TEXTO*/
+.auth-forgot-password a {
+    color: var(--dark-gray-3);
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+/*ESTILOS DO BOTÃO DE SUBMIT*/
+.auth-submit-btn {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: filter 0.3s ease;
+}
+
+/*ESTILOS DO BOTÃO DE SUBMIT - HOVER*/
+.auth-submit-btn:hover {
+    filter: brightness(0.9);
+}
+
+/*ESTILOS DO BOTÃO DE SUBMIT - DESABILITADO*/
+.auth-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/*ESTILOS DO DIVISOR*/
+.auth-divider {
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/*ESTILOS DO DIVISOR - LINHAS*/
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--light-gray-2);
+}
+/*ESTILOS DO DIVISOR - TEXTO*/
+.auth-divider span {
+    font-size: 12px;
+    color: var(--light-gray);
+}
+/*ESTILOS DOS BOTÕES SOCIAIS*/
+.auth-social-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--white);
+    border: 1px solid var(--light-gray-2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--dark-gray-2);
+    transition: background-color 0.3s ease;
+}
+
+/*ESTILOS DOS BOTÕES SOCIAIS - HOVER*/
+.auth-social-btn:hover {
+    background-color: var(--light-gray-3);
+}
+
+/*ESTILOS DOS ÍCONES DOS BOTÕES SOCIAIS*/
+.auth-social-btn img {
+    width: 16px;
+    height: 16px;
+}
+/*ESTILOS DA MEDIA QUERY - MOBILE*/
+@media (max-width: 480px) {
+    .auth-modal-content {
+        padding: 24px;
+        max-width: 100%;
+        margin: 16px;
+    }
+    /*ESTILOS DA MEDIA QUERY - MOBILE - TABS*/
+    .auth-tab {
+        font-size: 16px;
+        padding: 10px;
+    }
+    /*ESTILOS DA MEDIA QUERY - MOBILE - INPUTS*/
+    #auth-form input {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

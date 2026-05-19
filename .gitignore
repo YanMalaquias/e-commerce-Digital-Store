@@ -1,0 +1,8 @@
+# Node modules  
+node_modules/  
+
+# Outros possíveis arquivos que você pode querer ignorar  
+npm-debug.log  
+.DS_Store  
+.env  
+dist/

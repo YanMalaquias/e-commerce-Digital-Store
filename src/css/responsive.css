@@ -1,0 +1,47 @@
+@media (max-width: 1024px) {
+    .nav-header {
+        padding: 15px 20px;
+    }
+    
+    header {
+        width: 95%;
+        max-width: 1024px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .search-container {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .input-header {
+        width: 100%;
+    }
+    
+    .ol-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .digital-store-header {
+        font-size: 16px;
+    }
+    
+    .entrar-header {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

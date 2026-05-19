@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<!--<-- Head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="src/css/Homepage.css">
+    <link rel="stylesheet" href="src/css/auth-modal.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
+</head>
+      <!-- Body -->
+<body>
+
+    <header class="header-conteiner">
+        <nav class="nav-header">
+     <!-- Logo e busca -->
+            <a class="digital-store-header" href="#">
+                <img class="logo-digital" src="src/assets/logo_digital_store.svg" alt="Logo Digital Store">
+                Digital Store
+            </a>
+
+            <div class="search-container">
+                <div class="search-container">
+                    <input class="input-header" id="search-input" name="search" type="text" placeholder="Pesquisar produto...">
+                    <img class="search-icon" src="src/assets/lupa.png" alt="Ícone de pesquisa">
+                </div>
+
+                <div class="style-button">
+                    <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar / Cadastrar</button>
+                    <div style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;">
+                        <img class="carrinho" src="src/assets/img_carrinho.svg" alt="Ícone do Carrinho">
+                        <span id="cart-counter" style="position: absolute; top: -8px; right: -10px; background-color: #C92071; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+  <!-- Navegação -->
+        <div class="navigation-header">
+            <ol class="ol-header">
+                <!-- Links da navegação -->
+                <a href="Homepage.html">
+                    <li>Home</li>
+                </a>
+                <!-- pagina de produtos -->
+                <a href="src/pages/Page-Producto.html">
+                    <li>Produtos</li>
+                </a>
+                <!-- pagina de categorias -->
+                <a href="src/pages/ProductListdesign.html">
+                    <li>Categorias</li>
+                </a>
+                <!-- pagina de meus pedidos -->
+                <a href="src/pages/MeusPedidos.html">
+                    <li>Meus Pedidos</li>
+                </a>
+            </ol>
+        </div>
+    </header>
+
+    <!-- Carrossel -->
+    <section class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-text">
+                <p class="highlight">Melhores ofertas personalizadas</p>
+                <h1>Queima de<br>estoque Nike 🔥</h1>
+                <p>Consequat culpa exercitation mollit nisi excepteur do<br>do tempor laboris eiusmod irure consectetur.
+                </p>
+                <button class="carousel-button" id="btn-scroll">Ver Ofertas</button>
+            </div>
+            <div class="carousel-images">
+                <div class="carousel-track">
+                    <img src="src/assets/White-Sneakers-PNG-Clipart 1.svg" alt="Ténis 1">
+                    <img src="src/assets/White-Sneakers-PNG-Clipart 1.svg" alt="Ténis 2">
+                    <img src="src/assets/White-Sneakers-PNG-Clipart 1.svg" alt="Ténis 3">
+                    <img src="src/assets/White-Sneakers-PNG-Clipart 1.svg" alt="Ténis 4">
+                </div>
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                    <span class="indicator" data-index="3"></span>
+                </div>
+            </div>
+    </section>
+    <!-- Coleções em Destaque - Primeira Seção"-->
+
+    <section class="featured-collections">
+        <h2 class="section-title">Coleções em destaque</h2>
+        <div class="featured-items">
+            <div class="featured-item">
+                <span class="discount-tag">30% OFF</span>
+                <img class="featured-image" src="src/assets/collection-1.png" alt="Novo drop Supreme">
+                <h3 class="featured-title">Novo drop Supreme</h3>
+                <button class="featured-button">Comprar</button>
+            </div>
+            
+            <div class="featured-item">
+                <span class="discount-tag">30% OFF</span>
+                <img class="featured-image" src="src/assets/collection-2.png" alt="Coleção Adidas">
+                <h3 class="featured-title">Coleção Adidas</h3>
+                <button class="featured-button">Comprar</button>
+            </div>
+            
+            <div class="featured-item">
+                <span class="discount-tag">30% OFF</span>
+                <img class="featured-image" src="src/assets/collection-3.png" alt="Novo Beats Bass">
+                <h3 class="featured-title">Novo Beats Bass</h3>
+                <button class="featured-button">Comprar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coleções em Destaque - Segunda Seção -->
+
+    <section class="category-collections">
+        <h2 class="section-title-aligned">Coleções em destaque</h2>
+        <div class="category-icons">
+            <div class="category-item">
+                <img src="src/assets/Frame 10 (1).png" alt="Camisetas" class="category-icon">
+                <p>Camisetas</p>
+            </div>
+            <div class="category-item">
+                <img src="src/assets/Frame 11 (1).png" alt=" Calças" class="category-icon">
+                <p>Calças</p>
+            </div>
+            <div class="category-item">
+                <img src="src/assets/Frame 11 (1).png" alt=" Bonés" class="category-icon">
+                <p>Bonés</p>
+            </div>
+            <div class="category-item">
+                <img src="src/assets/Frame 13 (1).png" alt=" Headphones" class="category-icon">
+                <p>Headphones</p>
+            </div>
+            <div class="category-item">
+                <img src="src/assets/Frame 14 (1).png" alt=" Tênis" class="category-icon">
+                <p>Tênis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos em alta -->
+
+    <div class="div-products" id="secao-produtos">
+        <div class="div-products">
+            <div class="div-products-title">
+                <h2 class="products-h2">Produtos em Alta</h2>
+                <h3 class="products-h3">Ver todos</h3>
+            </div>
+<!-- Produtos em linha -->
+            <div class="div-products-line">
+   <!-- Primeiro produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <p class="products-p-off">30% OFF</p>
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <!-- primeiro item do produto -->
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Segundo item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <p class="products-p-off">30% OFF</p>
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terceiro item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s> $200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quarto item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <!-- <p class="products-p-off">30% OFF</p> -->
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Quinto item do produto -->
+            <div class="div-products-line">
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <p class="products-p-off">30% OFF</p>
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sexto item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <p class="products-p-off">30% OFF</p>
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sétimo item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <!-- <p class="products-p-off">30% OFF</p> -->
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Oitavo item do produto -->
+                <div class="div-products-line-item">
+                    <div class="div-products-line-item1">
+                        <!-- <p class="products-p-off">30% OFF</p> -->
+                        <div class="div-products-img-div">
+                            <img class="products-img" src="src/assets/Mask group.png">
+                        </div>
+                    </div>
+                    <div class="div-products-line-item2">
+                        <h6>
+                            <p class="products-p1">Tênis</p>
+                        </h6>
+                        <p class="products-p2">K-Swiss V8 - Masculino</p>
+                        <div class="products-price">
+                            <p class="products-p3"><s>$200</s></p>
+                            <p class="products-p4">$ 100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oferta Especial -->
+
+    <div
+        class="oferta-especial flex flex-col md:flex-row items-center md:items-start md:justify-between p-4 md:p-8 lg:p-12 bg-white shadow-lg rounded-lg">
+        <div class="tenis-container">
+            <img src="src/assets/tenisEspecial.png" alt="Tênis">
+            <div class="circulo"></div>
+        </div>
+
+        <div class="text-ofep mt-6 md:mt-0 md:ml-8 lg:ml-12 w-full md:w-1/2 lg:w-2/3 text-center md:text-left">
+            <h2 class="ofep-h2 text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">Oferta Especial</h2>
+            <h1 class="ofep-h1 text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Air Jordan edição de
+                colecionador</h1>
+            <p class="ofep-p text-gray-600 text-base md:text-lg lg:text-xl mt-4">
+                Lorem ipsum dolor sit amet, consectetur <br>
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br>
+                Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+            <a href="#" id="btn-cupom"
+                class="ofep-bt inline-block mt-6 bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition duration-300">Ver
+                Oferta</a>
+        </div>
+    </div>
+
+    <!-- atual footer -->
+
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; margin: 0px;">
+        <div id="footer_content"
+            style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+
+            <!-- Logo e descrição -->
+            <div class="footer-column" style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+
+                    <!-- Logo antes do nome -->
+                    <img src="src/assets/logo-footer.svg" alt="Logo Digital Store"
+                        style="width: 40px; height: 40px; margin-right: 10px;">
+                    <h2 style="margin: 0; font-size: 20px;">Digital Store</h2>
+                </div>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore.
+                </p>
+
+                <!-- Redes sociais -->
+                <div id="footer_social_midia" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="#" class="social-icon">
+                        <img src="src/assets/Logo Facebook.svg" alt="Facebook" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="src/assets/Logo Istagram.svg" alt="Instagram" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="src/assets/Logo Twiter.svg" alt="Twitter" style="width: 33px; height: 33px;">
+                    </a>
+                </div>
+            </div>
+            <!--<-- Informação -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px; ">Informação</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Sobre Drip Store</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Segurança</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Wishlist</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Trabalhe conosco</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Meus Pedidos</a></li>
+                </ul>
+            </div>
+            <!-- Categorias -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Categorias</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Camisetas</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Calças</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Bonés</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Headphones</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Tênis</a></li>
+                </ul>
+            </div>
+            <!-- Contato -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Contato</h3>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE, 60150-161
+                </p>
+                <p style="color: #aaa; font-size: 14px;">(85) 3051-3411</p>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="border-top: 1px solid #444; margin-bottom: 10px;"></div>
+            <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
+        </div>
+    </footer>
+
+    <!-- caminho javascript -->
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="src/js/carrossel.js"></script>
+    <script src="src/js/main.js"></script>
+    <script type="module" src="src/js/app.js"></script>
+</body>
+
+</html>

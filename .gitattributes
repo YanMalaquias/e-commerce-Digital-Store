@@ -1,0 +1,5 @@
+# Normaliza os terminadores de linha para todos os arquivos de texto  
+* text=auto  
+
+# Para garantir que JSON use LF  
+*.json text eol=lf

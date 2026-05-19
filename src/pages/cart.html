@@ -1,0 +1,109 @@
+<!-- Página do Carrinho de Compras do e-commerce Digital Store -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Digital Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Link para o arquivo de estilos CSS global -->
+    <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="../css/Homepage.css">
+    <link rel="stylesheet" href="../css/auth-modal.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Cabeçalho dinâmico da página (renderizado via JavaScript) -->
+    <header id="main-header"></header>
+    <!-- Conteúdo principal da página -->
+    <main id="main-content">
+        <!-- Container principal da página do carrinho -->
+        <section class="cart-page-container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+            <h2 style="margin-bottom: 30px;">Seu Carrinho</h2>
+            <!-- Lista dinâmica de itens do carrinho (renderizado via JavaScript) -->
+            <div id="cart-items-list"></div>
+            <!-- Resumo do carrinho com total e botão de checkout (renderizado via JavaScript) -->
+            <div id="cart-summary"></div>
+        </section>
+    </main>
+    <!-- Rodapé dinâmico da página (renderizado via JavaScript) -->
+    <footer style="background-color: #000; color: #fff; padding: 40px 20px; margin: 0px;">
+        <div id="footer_content"
+            style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+            <!-- Logo e descrição -->
+            <div class="footer-column" style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <!-- Logo antes do nome -->
+                    <img src="../assets/logo-footer.svg" alt="Logo Digital Store"
+                        style="width: 40px; height: 40px; margin-right: 10px;">
+                    <h2 style="margin: 0; font-size: 20px;">Digital Store</h2>
+                </div>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore.
+                </p>
+                <!-- Redes sociais -->
+                <div id="footer_social_midia" style="margin-top: 15px; display: flex; gap: 10px;">
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Facebook.svg" alt="Facebook" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Istagram.svg" alt="Instagram" style="width: 33px; height: 33px;">
+                    </a>
+                    <a href="#" class="social-icon">
+                        <img src="../assets/Logo Twiter.svg" alt="Twitter" style="width: 33px; height: 33px;">
+                    </a>
+                </div>
+            </div>
+            <!-- coluna de informações -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px; ">Informação</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Sobre Drip Store</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Segurança</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Wishlist</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Blog</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Trabalhe conosco</a>
+                    </li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Meus Pedidos</a></li>
+                </ul>
+            </div>
+
+            <!-- coluna de categorias -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Categorias</h3>
+                <ul style="list-style-type: none; padding: 0; margin: 0;">
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Camisetas</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Calças</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Bonés</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Headphones</a></li>
+                    <li><a href="#" style="color: #aaa; font-size: 14px; text-decoration: none;">Tênis</a></li>
+                </ul>
+            </div>
+
+            <!-- coluna de contato -->
+            <div class="footer-column">
+                <h3 style="color: #fff; font-size: 18px; margin-bottom: 15px;">Contato</h3>
+                <p style="color: #aaa; font-size: 14px; line-height: 1.5;">
+                    Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE, 60150-161
+                </p>
+                <p style="color: #aaa; font-size: 14px;">(85) 3051-3411</p>
+            </div>
+        </div>
+
+        <!-- coluna de copyright -->
+        <div style="text-align: center; margin-top: 20px;">
+            <div style="border-top: 1px solid #444; margin-bottom: 10px;"></div>
+            <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
+        </div>
+    </footer>
+    <!-- Script principal da aplicação usando ES Modules -->
+    <script type="module" src="../js/app.js"></script>
+    
+    <!-- Script específico da página Cart usando ES Modules -->
+    <script type="module" src="../js/page/CartPage.js"></script>
+</body>
+</html>
