@@ -120,6 +120,12 @@ Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
 
 ---
 
+## 📝 Histórico de Atualizações
+
+*   **Recente:** Atualização na barra de navegação principal (`navigation-header`), com a remoção da aba "Produtos" para simplificar a interface e melhorar a experiência do usuário.
+
+---
+
 <p align="center">
   <b>Digital Store</b> foi desenvolvido com foco em performance, organização estrutural e escalabilidade modular. 🚀
 </p>
