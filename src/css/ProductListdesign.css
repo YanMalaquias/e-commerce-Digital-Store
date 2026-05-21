@@ -149,27 +149,28 @@ header {
 .content-wrapper {
     display: flex;
     gap: 15px;
+    align-items: flex-start;
 }
 
 .main-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 30px;
+    padding: 30px 20px;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .filters {
     background: #fff;
-    padding: 50px;
+    padding: 30px 20px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    top: 332px;
-    left: 100px;
-    width: 308px;
-    height: 720px;
-    gap: 20px;
+    width: 225px;
+    height: fit-content;
+    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .line {
@@ -211,6 +212,8 @@ header {
     flex-wrap: wrap;
     gap: 20px;
     max-width: 900px;
+    width: 100%;
+    align-content: flex-start;
 }
 
 .product-card {
