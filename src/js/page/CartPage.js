@@ -4,8 +4,14 @@
 import CartContext from '../contexts/CartContext.js';
 import AuthContext from '../contexts/AuthContext.js';
 import { URLS } from '../config/urls.js';
+import { createCheckoutSession, saveCheckoutSession, getPaymentMethods, validatePaymentData, PAYMENT_METHODS, createOrder } from '../utils/checkoutService.js';
+import { getUserProfile, addUserOrder } from '../utils/userService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    let currentStep = 'CART'; // Passos possíveis: CART, CHECKOUT
+    let selectedItemIds = new Set();
+    let currentPaymentMethod = PAYMENT_METHODS.CARD;
+
     // Carregar header dinamicamente
     function loadHeader() {
         const header = document.getElementById('main-header');
@@ -40,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="${URLS.HOME}"><li>Home</li></a>
                     <a href="${URLS.PRODUCTS}"><li>Produtos</li></a>
                     <a href="${URLS.CATEGORIES}"><li>Categorias</li></a>
-                    <a href="#"><li>Meus Pedidos</li></a>
+                    <a href="${URLS.ORDERS}"><li>Meus Pedidos</li></a>
                 </ol>
             </div>
         `;
@@ -92,15 +98,45 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
+    // Renderiza a visualização principal baseada no passo
+    function renderView() {
+        const container = document.querySelector('.cart-page-container');
+        if (!container) return;
+
+        if (currentStep === 'CART') {
+            container.innerHTML = `
+                <h2 style="margin-bottom: 30px;">Seu Carrinho</h2>
+                <div style="display: flex; flex-direction: column; gap: 30px; width: 100%;">
+                    <div style="margin-bottom: 10px;">
+                        <label style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="select-all-items"> Selecionar Todos
+                        </label>
+                    </div>
+                    <div style="display: flex; flex-direction: row; gap: 30px; align-items: flex-start; width: 100%; flex-wrap: wrap;">
+                        <div id="cart-items-list" style="flex: 1; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-width: 300px;"></div>
+                        <div id="cart-summary" style="width: 100%; max-width: 350px;"></div>
+                    </div>
+                </div>
+            `;
+            renderCartPage();
+        } else if (currentStep === 'CHECKOUT') {
+            container.innerHTML = `
+                <h2 style="margin-bottom: 30px;">Checkout</h2>
+                <div style="display: flex; flex-direction: row; gap: 30px; align-items: flex-start; width: 100%; flex-wrap: wrap;">
+                    <div id="checkout-details" style="flex: 1; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); min-width: 300px;"></div>
+                    <div id="checkout-summary" style="width: 100%; max-width: 350px;"></div>
+                </div>
+            `;
+            renderCheckoutPage();
+        }
+    }
+
     // Função principal que renderiza a página do carrinho
     function renderCartPage() {
         const cartItemsList = document.getElementById('cart-items-list');
         const cartSummary = document.getElementById('cart-summary');
-
-        if (!cartItemsList || !cartSummary) {
-            console.error('Cart elements not found');
-            return;
-        }
+        
+        if (!cartItemsList || !cartSummary) return;
 
         // Obter carrinho do CartContext
         const cartState = CartContext.getCartState();
@@ -115,90 +151,305 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             cartSummary.innerHTML = '';
-            attachCartEventListeners(cart);
+            document.getElementById('select-all-items').parentElement.style.display = 'none';
         } else {
             // Renderizar itens do carrinho
-            const cartItemsHtml = cart.map((item, index) => `
-                <div class="cart-item" data-item-index="${index}">
-                    <img src="${item.image}" alt="${item.name}" />
-                    <div class="cart-item-details">
-                        <h3>${item.name}</h3>
-                        <p>Preço: R$ ${item.price.toFixed(2)}</p>
-                        <div class="quantity-controls">
-                            <button class="btn-quantity" data-action="decrease" data-item-index="${index}">-</button>
-                            <span>${item.quantity}</span>
-                            <button class="btn-quantity" data-action="increase" data-item-index="${index}">+</button>
+            const cartItemsHtml = cart.map((item, index) => {
+                const uniqueId = item.id;
+                const isSelected = selectedItemIds.has(uniqueId);
+                return `
+                <div class="cart-item" data-item-index="${index}" style="display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid #eee;">
+                    <input type="checkbox" class="item-checkbox" data-id="${uniqueId}" ${isSelected ? 'checked' : ''} style="width: 20px; height: 20px; cursor: pointer;">
+                    <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px; background: #f5f5f5;" />
+                    <div class="cart-item-details" style="flex: 1;">
+                        <h3 style="margin: 0 0 5px 0; font-size: 16px;">${item.name}</h3>
+                        <p style="margin: 0; color: #666; font-size: 14px;">Preço: R$ ${item.price.toFixed(2)}</p>
+                        <div class="quantity-controls" style="margin-top: 10px;">
+                            <button class="btn-quantity" data-action="decrease" data-id="${item.id}" style="padding: 2px 8px; border: 1px solid #ddd; background: #fff; cursor: pointer;">-</button>
+                            <span style="margin: 0 10px;">${item.quantity}</span>
+                            <button class="btn-quantity" data-action="increase" data-id="${item.id}" style="padding: 2px 8px; border: 1px solid #ddd; background: #fff; cursor: pointer;">+</button>
                         </div>
-                        <p>Subtotal: R$ ${(item.price * item.quantity).toFixed(2)}</p>
                     </div>
-                    <button class="btn-remove-item" data-item-index="${index}">Remover</button>
+                    <div style="text-align: right;">
+                        <p style="margin: 0 0 10px 0; font-weight: bold;">R$ ${(item.price * item.quantity).toFixed(2)}</p>
+                        <button class="btn-remove-item" data-id="${item.id}" style="color: #c92071; background: none; border: none; cursor: pointer; text-decoration: underline;">Remover</button>
+                    </div>
                 </div>
-            `).join('');
+            `}).join('');
 
             cartItemsList.innerHTML = cartItemsHtml;
 
-            // Calcular total do carrinho
-            const total = cart.reduce((sum, item) => {
-                return sum + (item.price * item.quantity);
-            }, 0);
+            // Calcular total dos itens selecionados
+            const selectedItems = cart.filter(item => selectedItemIds.has(item.id));
+            const totalSelected = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const totalItemsSelected = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
 
             // Renderizar resumo do carrinho
             cartSummary.innerHTML = `
-                <div class="cart-summary">
-                    <h3>Resumo do Carrinho</h3>
-                    <p>Itens: ${cartState.totalItems}</p>
-                    <p>Total: R$ ${total.toFixed(2)}</p>
-                    <button class="btn-checkout">Ir para Checkout</button>
+                <div class="cart-summary-section">
+                    <div class="cart-summary">
+                        <h3>Resumo do Pedido</h3>
+                        <div class="summary-row">
+                            <span>Itens Selecionados:</span>
+                            <span>${totalItemsSelected}</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total:</span>
+                            <span>R$ ${totalSelected.toFixed(2)}</span>
+                        </div>
+                        <button class="btn-checkout" id="btn-proceed-checkout" ${selectedItems.length === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>Continuar</button>
+                    </div>
                 </div>
             `;
 
-            // Adicionar eventos aos botões
             attachCartEventListeners(cart);
-
-            // Adicionar evento ao botão de checkout
-            const checkoutBtn = document.querySelector('.btn-checkout');
-            if (checkoutBtn) {
-                checkoutBtn.addEventListener('click', () => {
-                    alert('Funcionalidade de checkout em desenvolvimento. Backend necessário.');
-                });
-            }
         }
     }
 
-    // Função separada para adicionar eventos dos itens do carrinho
+    function renderCheckoutPage() {
+        const checkoutDetails = document.getElementById('checkout-details');
+        const checkoutSummary = document.getElementById('checkout-summary');
+        
+        const cartState = CartContext.getCartState();
+        const selectedItems = cartState.items.filter(item => selectedItemIds.has(item.id));
+        const totalSelected = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        
+        const profile = getUserProfile();
+        const addressText = profile.address?.street ? 
+            `${profile.address.street}, ${profile.address.number} - ${profile.address.city}/${profile.address.state}` : 
+            'Endereço não cadastrado. Edite no seu perfil.';
+
+        checkoutDetails.innerHTML = `
+            <div style="margin-bottom: 30px;">
+                <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Endereço de Entrega</h3>
+                <p style="color: #666; margin: 0;">${addressText}</p>
+            </div>
+            
+            <div>
+                <h3 style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Forma de Pagamento</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    ${getPaymentMethods().map(m => `
+                        <button class="payment-tab ${currentPaymentMethod === m.id ? 'active' : ''}" data-method="${m.id}" 
+                            style="flex: 1; padding: 10px; border: 1px solid ${currentPaymentMethod === m.id ? '#c92071' : '#ddd'}; 
+                            background: ${currentPaymentMethod === m.id ? '#fff0f5' : '#fff'}; 
+                            color: ${currentPaymentMethod === m.id ? '#c92071' : '#333'}; 
+                            border-radius: 4px; cursor: pointer; font-weight: bold;">
+                            ${m.label}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div id="payment-fields" style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+                    ${renderPaymentFields(currentPaymentMethod)}
+                </div>
+            </div>
+        `;
+
+        checkoutSummary.innerHTML = `
+            <div class="cart-summary-section">
+                <div class="cart-summary">
+                    <h3>Resumo</h3>
+                    <div style="max-height: 200px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                        ${selectedItems.map(item => `
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
+                                <span style="color: #666;">${item.quantity}x ${item.name}</span>
+                                <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span>R$ ${totalSelected.toFixed(2)}</span>
+                    </div>
+                    <button class="btn-checkout" id="btn-confirm-order" style="width: 100%; margin-top: 20px;">Confirmar Pedido</button>
+                    <button id="btn-back-to-cart" style="width: 100%; padding: 12px; background: none; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px; cursor: pointer; color: #666;">Voltar ao Carrinho</button>
+                </div>
+            </div>
+        `;
+
+        attachCheckoutEventListeners();
+    }
+
+    function renderPaymentFields(method) {
+        if (method === PAYMENT_METHODS.CARD) {
+            return `
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" id="cardName" placeholder="Nome impresso no cartão" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" required>
+                    <input type="text" id="cardNumber" placeholder="Número do cartão" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" required>
+                    <div style="display: flex; gap: 15px;">
+                        <input type="text" id="cardExpiry" placeholder="MM/AA" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; flex: 1;" required>
+                        <input type="text" id="cardCvv" placeholder="CVV" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; flex: 1;" required>
+                    </div>
+                </div>
+            `;
+        } else if (method === PAYMENT_METHODS.PIX) {
+            return `
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 15px; color: #666;">Gere o código Pix ou escaneie o QR Code após a confirmação.</p>
+                    <input type="hidden" id="pixKey" value="12345678909">
+                </div>
+            `;
+        } else if (method === PAYMENT_METHODS.BOLETO) {
+            return `
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <p style="margin-bottom: 5px; color: #666;">Informe seu CPF para emissão do boleto:</p>
+                    <input type="text" id="boletoCpf" placeholder="000.000.000-00" style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; width: 100%;" required>
+                </div>
+            `;
+        }
+        return '';
+    }
+
     function attachCartEventListeners(cart) {
-        // Adicionar eventos aos botões de remover item
+        // Selecionar/Deselecionar Todos
+        const selectAllCheckbox = document.getElementById('select-all-items');
+        if (selectAllCheckbox) {
+            // Verifica se todos estão selecionados inicialmente
+            selectAllCheckbox.checked = cart.length > 0 && cart.every(item => selectedItemIds.has(item.id));
+            
+            selectAllCheckbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    cart.forEach(item => selectedItemIds.add(item.id));
+                } else {
+                    selectedItemIds.clear();
+                }
+                renderCartPage();
+            });
+        }
+
+        // Checkboxes Individuais
+        document.querySelectorAll('.item-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const id = e.target.getAttribute('data-id');
+                if (e.target.checked) {
+                    selectedItemIds.add(id);
+                } else {
+                    selectedItemIds.delete(id);
+                }
+                renderCartPage();
+            });
+        });
+
+        // Remover item
         document.querySelectorAll('.btn-remove-item').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const itemIndex = parseInt(e.target.getAttribute('data-item-index'));
-                const item = cart[itemIndex];
+                const id = e.target.getAttribute('data-id');
+                CartContext.removeItem(id);
+                selectedItemIds.delete(id);
+                renderCartPage();
+            });
+        });
+
+        // Botões de quantidade
+        document.querySelectorAll('.btn-quantity').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const action = e.target.getAttribute('data-action');
+                const id = e.target.getAttribute('data-id');
+                const item = cart.find(i => String(i.id) === String(id));
+                
                 if (item) {
-                    CartContext.removeItem(item.id);
+                    if (action === 'increase') {
+                        CartContext.updateQuantity(id, item.quantity + 1);
+                    } else if (action === 'decrease' && item.quantity > 1) {
+                        CartContext.updateQuantity(id, item.quantity - 1);
+                    }
                     renderCartPage();
                 }
             });
         });
 
-        // Adicionar eventos aos botões de quantidade
-        document.querySelectorAll('.btn-quantity').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const action = e.target.getAttribute('data-action');
-                const itemIndex = parseInt(e.target.getAttribute('data-item-index'));
-                const item = cart[itemIndex];
-                
-                if (item) {
-                    if (action === 'increase') {
-                        CartContext.updateQuantity(item.id, item.quantity + 1);
-                        renderCartPage(); // update partial content if not handled by framework, but here we can just let state change triggers handle partial updates or simply call renderCartPage for the list
-                    } else if (action === 'decrease' && item.quantity > 1) {
-                        CartContext.updateQuantity(item.id, item.quantity - 1);
-                        renderCartPage();
-                    }
+        // Botão de Continuar (Ir para Checkout)
+        const btnProceed = document.getElementById('btn-proceed-checkout');
+        if (btnProceed) {
+            btnProceed.addEventListener('click', () => {
+                const authState = AuthContext.getAuthState();
+                if (!authState.isAuthenticated) {
+                    alert('Você precisa fazer login para continuar com a compra.');
+                    AuthContext.openAuthModal();
+                    return;
                 }
+                
+                if (selectedItemIds.size === 0) {
+                    alert('Selecione pelo menos um item para continuar.');
+                    return;
+                }
+                
+                currentStep = 'CHECKOUT';
+                renderView();
             });
+        }
+    }
+
+    function attachCheckoutEventListeners() {
+        // Abas de Pagamento
+        document.querySelectorAll('.payment-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                currentPaymentMethod = e.target.getAttribute('data-method');
+                renderCheckoutPage();
+            });
+        });
+
+        // Voltar ao Carrinho
+        document.getElementById('btn-back-to-cart').addEventListener('click', () => {
+            currentStep = 'CART';
+            renderView();
+        });
+
+        // Confirmar Pedido
+        document.getElementById('btn-confirm-order').addEventListener('click', () => {
+            // Coletar dados do pagamento baseado no método
+            let paymentData = {};
+            if (currentPaymentMethod === PAYMENT_METHODS.CARD) {
+                paymentData = {
+                    cardName: document.getElementById('cardName')?.value,
+                    cardNumber: document.getElementById('cardNumber')?.value,
+                    cardExpiry: document.getElementById('cardExpiry')?.value,
+                    cardCvv: document.getElementById('cardCvv')?.value
+                };
+            } else if (currentPaymentMethod === PAYMENT_METHODS.PIX) {
+                paymentData = { pixKey: document.getElementById('pixKey')?.value };
+            } else if (currentPaymentMethod === PAYMENT_METHODS.BOLETO) {
+                paymentData = { boletoCpf: document.getElementById('boletoCpf')?.value };
+            }
+
+            // Validar
+            const validation = validatePaymentData(currentPaymentMethod, paymentData);
+            if (!validation.valid) {
+                alert(`Preencha todos os campos obrigatórios do pagamento (${validation.missingFields.join(', ')}).`);
+                return;
+            }
+
+            const profile = getUserProfile();
+            if (!profile.address || !profile.address.street) {
+                alert('Cadastre um endereço de entrega no seu perfil antes de finalizar a compra.');
+                return;
+            }
+
+            // Criar pedido
+            const cartState = CartContext.getCartState();
+            const selectedItems = cartState.items.filter(item => selectedItemIds.has(item.id));
+            
+            const order = createOrder({
+                items: selectedItems,
+                profile,
+                paymentMethod: currentPaymentMethod,
+                paymentData
+            });
+
+            // Salvar pedido e limpar itens selecionados do carrinho
+            addUserOrder(order);
+            
+            // Remove os itens comprados do carrinho original
+            selectedItems.forEach(item => {
+                CartContext.removeItem(item.id);
+            });
+            
+            selectedItemIds.clear();
+            currentStep = 'CART';
+
+            alert(`Pedido finalizado com sucesso! Número do pedido: ${order.id}`);
+            window.location.href = URLS.ORDERS || '../pages/MeusPedidos.html'; // Redireciona para Meus Pedidos
         });
     }
 
@@ -216,8 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeListeners() {
         unsubscribeCart = CartContext.subscribe((newCartState) => {
             updateCartHeaderDisplay(newCartState);
-            // Render cart page is only necessary if items change structure or are removed, 
-            // but the guide advises separating it out, let's keep renderCartPage triggered on quantity clicks directly
         });
 
         unsubscribeAuth = AuthContext.subscribe(() => {
@@ -230,11 +479,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (unsubscribeAuth) unsubscribeAuth();
     });
 
-    // Carregar header e footer
+    // Inicialização
     loadHeader();
     loadFooter();
     initializeListeners();
-
-    // Chamada inicial para renderizar a página do carrinho
-    renderCartPage();
+    renderView(); // Inicia o renderizador principal
 });

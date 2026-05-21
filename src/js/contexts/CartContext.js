@@ -3,119 +3,88 @@
  * Gerencia o estado do carrinho com persistência no localStorage
  * Equivalente ao CartContext do projeto React
  */
-import Storage from '../core/Storage.js';
 import eventBus from '../core/EventBus.js';
-
-
-// Chave do localStorage para o carrinho
-const CART_STORAGE_KEY = 'digital-store-cart';
-
-// Estado inicial do carrinho
-let cartState = {
-    items: Storage.get(CART_STORAGE_KEY, []),
-    totalItems: 0,
-    totalPrice: 0
-};
+import {
+    addItemToCart,
+    clearCartItems,
+    getCartState as readCartState,
+    removeItemFromCart,
+    updateCartItemQuantity
+} from '../utils/cartService.js';
 
 // Listeners para notificar mudanças no carrinho
 const listeners = [];
 
 /**
- * Calcula o total de itens e preço total
- */
-function calculateTotals() {
-    cartState.totalItems = cartState.items.reduce((sum, item) => sum + item.quantity, 0);
-    cartState.totalPrice = cartState.items.reduce((sum, item) => {
-        const price = item.priceDiscount || item.price;
-        return sum + (price * item.quantity);
-    }, 0);
-}
-
-/**
  * Notifica todos os listeners sobre mudanças no carrinho
+ * @param {Object} state
  */
-function notifyListeners() {
-    listeners.forEach(listener => listener({ ...cartState }));
-    // Emite evento global
-    eventBus.emit('cart:changed', { ...cartState });
+function notifyListeners(state) {
+    const snapshot = { ...state };
+    listeners.forEach(listener => listener(snapshot));
+    eventBus.publish('cart:changed', snapshot);
 }
 
 /**
- * Atualiza o carrinho no localStorage
+ * Obtém o estado atual do carrinho
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
-function persistCart() {
-    Storage.set(CART_STORAGE_KEY, cartState.items);
+function getCartState() {
+    return readCartState();
 }
 
 /**
- * Inicializa o contexto do carrinho
+ * Alias para getCartState() - compatibilidade com código existente
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
-function initCart() {
-    calculateTotals();
+function getCart() {
+    return getCartState();
 }
 
 /**
  * Adiciona um item ao carrinho
- * Se o item já existir (mesmo id, tamanho e cor), incrementa a quantidade
- * @param {Object} item - Item a ser adicionado (sem quantity)
+ * @param {Object} item
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
 function addItem(item) {
-    const existing = cartState.items.find(i => 
-        i.id === item.id && 
-        i.selectedSize === item.selectedSize && 
-        i.selectedColor === item.selectedColor
-    );
-
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cartState.items.push({ ...item, quantity: 1 });
-    }
-
-    calculateTotals();
-    persistCart();
-    notifyListeners();
+    const state = addItemToCart(item);
+    notifyListeners(state);
+    return state;
 }
 
 /**
  * Remove um item do carrinho pelo id
- * @param {number} id - ID do item a ser removido
+ * @param {string|number} id
+ * @param {{ selectedSize?: string|null, selectedColor?: string|null }} [options]
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
-function removeItem(id) {
-    cartState.items = cartState.items.filter(item => item.id !== id);
-    calculateTotals();
-    persistCart();
-    notifyListeners();
+function removeItem(id, options = {}) {
+    const state = removeItemFromCart(id, options);
+    notifyListeners(state);
+    return state;
 }
 
 /**
  * Atualiza a quantidade de um item
- * @param {number} id - ID do item
- * @param {number} quantity - Nova quantidade
+ * @param {string|number} id
+ * @param {number} quantity
+ * @param {{ selectedSize?: string|null, selectedColor?: string|null }} [options]
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
-function updateQuantity(id, quantity) {
-    if (quantity <= 0) {
-        removeItem(id);
-        return;
-    }
-    // Verifica se o item existe antes de atualizar
-    const item = cartState.items.find(item => item.id === id);
-    if (item) {
-        item.quantity = quantity;
-        calculateTotals();
-        persistCart();
-        notifyListeners();
-    }
+function updateQuantity(id, quantity, options = {}) {
+    const state = updateCartItemQuantity(id, quantity, options);
+    notifyListeners(state);
+    return state;
 }
 
 /**
  * Limpa o carrinho completamente
+ * @returns {{ items: Array, totalItems: number, totalPrice: number }}
  */
 function clearCart() {
-    cartState.items = [];
-    calculateTotals();
-    persistCart();
-    notifyListeners();
+    const state = clearCartItems() ? { items: [], totalItems: 0, totalPrice: 0 } : getCartState();
+    notifyListeners(state);
+    return state;
 }
 
 /**
@@ -125,9 +94,8 @@ function clearCart() {
  */
 function subscribe(listener) {
     listeners.push(listener);
-    listener({ ...cartState }); // Chama imediatamente com o estado atual
+    listener(getCartState());
 
-    // Retorna função para remover o listener
     return () => {
         const index = listeners.indexOf(listener);
         if (index > -1) {
@@ -135,25 +103,6 @@ function subscribe(listener) {
         }
     };
 }
-
-/**
- * Obtém o estado atual do carrinho
- * @returns {Object} Estado atual do carrinho
- */
-function getCartState() {
-    return { ...cartState };
-}
-
-/**
- * Alias para getCartState() - compatibilidade com cartPage.js
- * @returns {Object} Estado atual do carrinho
- */
-function getCart() {
-    return getCartState();
-}
-
-// Inicializa o carrinho
-initCart();
 
 // Exporta a API do contexto do carrinho
 const CartContext = {
