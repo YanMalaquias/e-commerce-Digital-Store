@@ -6,97 +6,12 @@ import AuthContext from '../contexts/AuthContext.js';
 import { URLS } from '../config/urls.js';
 import { createCheckoutSession, saveCheckoutSession, getPaymentMethods, validatePaymentData, PAYMENT_METHODS, createOrder } from '../utils/checkoutService.js';
 import { getUserProfile, addUserOrder } from '../utils/userService.js';
+import { getCartItems, setCartItems } from '../utils/cartService.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentStep = 'CART'; // Passos possíveis: CART, CHECKOUT
     let selectedItemIds = new Set();
     let currentPaymentMethod = PAYMENT_METHODS.CARD;
-
-    // Carregar header dinamicamente
-    function loadHeader() {
-        const header = document.getElementById('main-header');
-        if (!header) return;
-
-        const authState = AuthContext.getAuthState();
-        const cartState = CartContext.getCartState();
-        const buttonText = authState.isAuthenticated ? `Olá, ${authState.user.firstname}` : 'Entrar / Cadastrar';
-        const cartCounterOpacity = cartState.totalItems > 0 ? '1' : '0';
-        header.innerHTML = `
-            <nav class="nav-header">
-                <a class="digital-store-header" href="${URLS.HOME}">
-                    <img class="logo-digital" src="../assets/logo_digital_store.svg" alt="Logo Digital Store">
-                    Digital Store
-                </a>
-                <div class="search-container">
-                    <div class="search-container">
-                        <input class="input-header" type="text" placeholder="Pesquisar produto...">
-                        <img class="search-icon" src="../assets/lupa.png" alt="Ícone de pesquisa">
-                    </div>
-                    <div class="style-button">
-                        <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">${buttonText}</button>
-                        <div style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;" onclick="window.location.href='${URLS.CART}'">
-                            <img class="carrinho" src="../assets/img_carrinho.svg" alt="Ícone do Carrinho">
-                            <span id="cart-counter" style="position: absolute; top: -8px; right: -10px; background-color: #C92071; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: ${cartCounterOpacity}; transition: opacity 0.3s;">${cartState.totalItems}</span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div class="navigation-header">
-                <ol class="ol-header">
-                    <a href="${URLS.HOME}"><li>Home</li></a>
-                    <a href="${URLS.PRODUCTS}"><li>Produtos</li></a>
-                    <a href="${URLS.CATEGORIES}"><li>Categorias</li></a>
-                    <a href="${URLS.ORDERS}"><li>Meus Pedidos</li></a>
-                </ol>
-            </div>
-        `;
-
-        // Adicionar evento ao botão de login
-        const loginButton = document.getElementById('btn-header-auth');
-        if (loginButton) {
-            loginButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                const estadoAtual = AuthContext.getAuthState();
-                if (estadoAtual.isAuthenticated) {
-                    if (confirm('Deseja sair da sua conta?')) {
-                        AuthContext.logout();
-                        window.location.reload();
-                    }
-                } else {
-                    AuthContext.openAuthModal();
-                }
-            });
-        }
-    }
-
-    // Carregar footer dinamicamente
-    function loadFooter() {
-        const footer = document.getElementById('main-footer');
-        if (!footer) return;
-
-        footer.innerHTML = `
-            <footer>
-                <div class="footer-container">
-                    <div class="footer-section">
-                        <h3>Sobre</h3>
-                        <p>Digital Store - Sua loja de tênis favorita</p>
-                    </div>
-                    <div class="footer-section">
-                        <h3>Contato</h3>
-                        <p>Email: contato@digitalstore.com</p>
-                        <p>Telefone: (11) 1234-5678</p>
-                    </div>
-                    <div class="footer-section">
-                        <h3>Redes Sociais</h3>
-                        <p>Instagram | Facebook | Twitter</p>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2024 Digital Store. Todos os direitos reservados.</p>
-                </div>
-            </footer>
-        `;
-    }
 
     // Renderiza a visualização principal baseada no passo
     function renderView() {
@@ -164,7 +79,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="cart-item-details" style="flex: 1;">
                         <h3 style="margin: 0 0 5px 0; font-size: 16px;">${item.name}</h3>
                         <p style="margin: 0; color: #666; font-size: 14px;">Preço: R$ ${item.price.toFixed(2)}</p>
-                        <div class="quantity-controls" style="margin-top: 10px;">
+                        
+                        <div style="display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap;">
+                            <div>
+                                <span style="font-size: 12px; color: #666; font-weight: bold;">Tamanho:</span>
+                                <div class="variant-sizes" data-index="${index}" style="display: flex; gap: 5px; margin-top: 5px;">
+                                    ${[39, 40, 41, 42, 43].map(s => `<button class="size-btn" data-val="${s}" style="padding: 2px 8px; border: 1px solid ${item.selectedSize == s ? '#c92071' : '#ddd'}; background: ${item.selectedSize == s ? '#fff0f5' : '#fff'}; color: ${item.selectedSize == s ? '#c92071' : '#333'}; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">${s}</button>`).join('')}
+                                </div>
+                            </div>
+                            <div>
+                                <span style="font-size: 12px; color: #666; font-weight: bold;">Cor:</span>
+                                <div class="variant-colors" data-index="${index}" style="display: flex; gap: 5px; margin-top: 5px;">
+                                    ${['Azul', 'Vermelho', 'Cinza', 'Roxo'].map(c => `<button class="color-btn" data-val="${c}" style="padding: 2px 8px; border: 1px solid ${item.selectedColor == c ? '#c92071' : '#ddd'}; background: ${item.selectedColor == c ? '#fff0f5' : '#fff'}; color: ${item.selectedColor == c ? '#c92071' : '#333'}; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s;">${c}</button>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quantity-controls" style="margin-top: 15px;">
                             <button class="btn-quantity" data-action="decrease" data-id="${item.id}" style="padding: 2px 8px; border: 1px solid #ddd; background: #fff; cursor: pointer;">-</button>
                             <span style="margin: 0 10px;">${item.quantity}</span>
                             <button class="btn-quantity" data-action="increase" data-id="${item.id}" style="padding: 2px 8px; border: 1px solid #ddd; background: #fff; cursor: pointer;">+</button>
@@ -254,6 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
                                 <span style="color: #666;">${item.quantity}x ${item.name}</span>
                                 <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>
+                            <div style="font-size: 12px; color: #999; margin-top: -8px; margin-bottom: 10px;">
+                                ${item.selectedSize ? `Tam: ${item.selectedSize}` : 'Tam: Padrão'} ${item.selectedColor ? ` | Cor: ${item.selectedColor}` : ' | Cor: Padrão'}
                             </div>
                         `).join('')}
                     </div>
@@ -354,6 +288,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     } else if (action === 'decrease' && item.quantity > 1) {
                         CartContext.updateQuantity(id, item.quantity - 1);
                     }
+                    renderCartPage();
+                }
+            });
+        });
+
+        // Seleção de Tamanho
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const index = e.target.closest('.variant-sizes').getAttribute('data-index');
+                const val = e.target.getAttribute('data-val');
+                const items = getCartItems();
+                if (items[index]) {
+                    items[index].selectedSize = val;
+                    setCartItems(items);
+                    renderCartPage();
+                }
+            });
+        });
+
+        // Seleção de Cor
+        document.querySelectorAll('.color-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const index = e.target.closest('.variant-colors').getAttribute('data-index');
+                const val = e.target.getAttribute('data-val');
+                const items = getCartItems();
+                if (items[index]) {
+                    items[index].selectedColor = val;
+                    setCartItems(items);
                     renderCartPage();
                 }
             });
@@ -462,26 +426,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let unsubscribeCart = null;
-    let unsubscribeAuth = null;
 
     function initializeListeners() {
         unsubscribeCart = CartContext.subscribe((newCartState) => {
             updateCartHeaderDisplay(newCartState);
         });
-
-        unsubscribeAuth = AuthContext.subscribe(() => {
-            loadHeader();
-        });
     }
 
     window.addEventListener('beforeunload', () => {
         if (unsubscribeCart) unsubscribeCart();
-        if (unsubscribeAuth) unsubscribeAuth();
     });
 
     // Inicialização
-    loadHeader();
-    loadFooter();
     initializeListeners();
     renderView(); // Inicia o renderizador principal
 });
