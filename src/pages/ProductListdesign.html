@@ -32,7 +32,11 @@
 <!-- botão entrar e carrinho -->
                 <div class="style-button">
                     <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar / Cadastrar</button>
-                    <img class="carrinho" src="../assets/img_carrinho.svg" alt="Ícone do Carrinho">
+                    <div style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;">
+                        <img class="carrinho" src="../assets/img_carrinho.svg"   alt="Ícone do Carrinho">
+                        <a href="../pages/cart.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></a>
+                        <span id="cart-counter" style="position: absolute; top: -8px; right: -10px; background-color: #C92071; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">0</span>
+                    </div>
                 </div>
             </div>
         </nav>
