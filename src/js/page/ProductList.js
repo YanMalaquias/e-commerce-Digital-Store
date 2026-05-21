@@ -1,3 +1,5 @@
+import { addElementToCart, getCartState } from '../utils/cartService.js';
+
 // Simulando os produtos que virão do banco de dados no futuro (Fases 1 e 2 do Plano)
 const productsDB = [
     { id: 1, name: "K-Swiss V8 - Masculino", type: "Tênis", brand: "k-swiss", category: "esporte", gender: "masculino", price: 100, oldPrice: 200, discount: "30% OFF", image: "../assets/Mask group.png" },
@@ -22,6 +24,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("product-grid");
     const checkboxes = document.querySelectorAll(".filter-checkbox");
 
+    // Atualiza a bolinha indicadora do carrinho no cabeçalho
+    function updateCartCounter() {
+        const counter = document.getElementById("cart-counter");
+        if (counter) {
+            const state = getCartState();
+            counter.textContent = state.totalItems;
+            counter.style.opacity = state.totalItems > 0 ? "1" : "0";
+        }
+    }
+
     // Função que desenha os produtos filtrados na tela
     function renderProducts(products) {
         grid.innerHTML = ""; // Limpa a grade de produtos
@@ -37,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const oldPriceTag = product.oldPrice ? `<span class="products-p3"><s>$${product.oldPrice}</s></span>` : "";
 
             const cardHTML = `
-                <div class="div-products-line-item">
+                <div class="div-products-line-item" data-id="${product.id}">
                     <div class="div-products-line-item1">
                         ${discountTag}
                         <div class="div-products-img-div">
@@ -87,4 +99,15 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Inicializa a página com os produtos renderizados
     applyFilters();
+    updateCartCounter();
+
+    // Escuta os cliques em qualquer produto da grade para adicionar ao carrinho
+    grid.addEventListener("click", (e) => {
+        const card = e.target.closest(".div-products-line-item");
+        if (card) {
+            addElementToCart(card);
+            updateCartCounter();
+            alert("Produto adicionado ao carrinho com sucesso!"); 
+        }
+    });
 });

@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="navigation-header">
                 <ol class="ol-header">
                     <a href="${URLS.HOME}"><li>Home</li></a>
-                    <a href="${URLS.PRODUCTS}"><li>Produtos</li></a>
                     <a href="${URLS.CATEGORIES}"><li>Categorias</li></a>
                     <a href="${URLS.ORDERS}"><li>Meus Pedidos</li></a>
                 </ol>

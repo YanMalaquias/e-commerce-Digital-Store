@@ -92,12 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filtro/Busca de Produtos
     const searchInput = document.getElementById('search-input');
-    const featuredItems = document.querySelectorAll('.featured-item');
-    const productItems = document.querySelectorAll('.div-products-line-item');
 
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
+            
+            const featuredItems = document.querySelectorAll('.featured-item');
+            const productItems = document.querySelectorAll('.div-products-line-item');
 
             featuredItems.forEach(item => {
                 const title = item.querySelector('.featured-title');
