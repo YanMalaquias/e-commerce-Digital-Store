@@ -13,12 +13,12 @@
     <link rel="stylesheet" href="../css/Homepage.css">
     <link rel="stylesheet" href="../css/auth-modal.css">
     <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="icon" href="../src/assets/logo_digital_store.svg" type="image/png">
+    <link rel="icon" href="../assets/logo_digital_store.svg" type="image/png">
 </head>
 
 <body>
     <!-- Header -->
-    <header class="header-conteiner">
+    <header id="main-header" class="header-conteiner">
         <nav class="nav-header">
             <a class="digital-store-header" href="../../Homepage.html">
                 <img class="logo-digital" src="../assets/logo_digital_store.svg" alt="Logo Digital Store">
@@ -47,10 +47,10 @@
                 <a href="../../Homepage.html">
                     <li>Home</li>
                 </a>
-                <a href="Page-Producto.html">
+                <a href="../pages/Page-Producto.html">
                     <li>Produtos</li>
                 </a>
-                <a href="ProductListdesign.html">
+                <a href="../pages/ProductListdesign.html">
                     <li>Categorias</li>
                 </a>
                 <a href="../pages/MeusPedidos.html">
@@ -135,12 +135,9 @@
             <p style="color: #aaa; font-size: 14px;">&copy; 2022 Digital College</p>
         </div>
     </footer>
-
-    <!-- Script principal da aplicação usando ES Modules -->
-    <script type="module" src="../js/app.js"></script>
     
     <!-- Script específico da página Cart usando ES Modules -->
-     <script src="../js/main.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <script type="module" src="../js/page/CartPage.js"></script>
     <script type="module" src="../js/app.js"></script>
 </body>
