@@ -24,16 +24,17 @@
                 <img class="logo-digital" src="src/assets/logo_digital_store.svg" alt="Logo Digital Store">
                 Digital Store
             </a>
-
+<!-- lupa barra de pesquisa -->
             <div class="search-container">
                 <div class="search-container">
                     <input class="input-header" id="search-input" name="search" type="text" placeholder="Pesquisar produto...">
                     <img class="search-icon" src="src/assets/lupa.png" alt="Ícone de pesquisa">
                 </div>
-
+<!-- Botões de autenticação e carrinho -->
                 <div class="style-button">
                     <button class="entrar-header" id="btn-header-auth" style="width: auto; padding: 0 20px;">Entrar/Cadastrar</button>
-                    <div style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;">
+                    
+                    <div onclick="window.location.href='../src/pages/cart.html'" style="position: relative; display: inline-flex; align-items: center; cursor: pointer; margin-left: 10px;">
                         <img class="carrinho" src="src/assets/img_carrinho.svg" alt="Ícone do Carrinho">
                         <span id="cart-counter" style="position: absolute; top: -8px; right: -10px; background-color: #C92071; color: white; font-size: 10px; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">0</span>
                     </div>
