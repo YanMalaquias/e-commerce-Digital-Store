@@ -109,7 +109,7 @@ Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
    ```bash
    node src/js/server.js
    ```
-   *(A API subirá conectando-se ao `database.sqlite` e aguardará as requisições do frontend, geralmente via porta `3001` ou a configurada no `.env`)*
+   *(A API subirá conectando-se ao `database.sqlite` e aguardará as requisições do frontend, geralmente via porta `3000` ou a configurada no `.env`)*
 
 5. **Inicie o Front-end e acesse a Loja**:
    Para visualizar a interface em conjunto com as requisições API simuladas:
