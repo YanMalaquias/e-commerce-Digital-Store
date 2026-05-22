@@ -1,34 +1,20 @@
-fiz alguns ajustes nos indicados do carrossel
-alinhamento dos nome das seções 
-refiz a logica do carrossel, mais ainda falta algumas coisas
-copiei o layout para a segunda pagina  
-fechei algumas tags que estavam abertas no html 
-yan gustf 09/12/2024
-
-
-boa noite galera!, fiz algumas modificacoes na pagina "productlsitdesign" como centralizaçao e ajuste de tamanhos, 
-e tambem subi a 3 pagina "page-product" que estava faltando, tem algums detalhes que ainda faltam,
- mas esta quase finalizado essa primeira parte.
-
-
-
-/* faz tres dias que estou fazendo atualizaçoes na pagina trasendo algumas implementacoes de outros projetos, falta ajustar
- varias coisas, como mais imagens de tenis, 
- atuamente estou trabalhando no carrinho de compras para ele 
- funcionar corretamente, a pagina  de login e cadastro esta quase pronta adicionei uma parte extra para recuperar senha, 
- falta integrar e fazer um backend para o e-commerce, o carrinho de compras ainda nao esta funcional.*/
-
 proximos passos:
 
 1- carrinho de compras totalmente funcional.
-2- pagina de login e cadastro e recuperar senha.
-3- pagina de perfil do usuario.
-4- ajustar a pagina de categorias.
-5- migrar a pagina de produtos para o meus pedidos.
-6- ajustar nomes dos produtos .
-7- tamanho dos botoes.
-8- alinha a parte dos nomes no header para o centro. 
-9- ajustar a buscar na lupa.
-10-backend para o e-commerce.
-11-  falta ajustar tambem o login pelo google e facebook.
-12-  uniformizar as fontes e cores, background.
+2- pagina de login e cadastro e recuperar senha. -ok
+3- pagina de perfil do usuario. -ok
+4- ajustar a pagina de categorias. -ok
+5- migrar a pagina de produtos para o meus pedidos. -ok
+6- ajustar nomes dos produtos. -ok
+7- tamanho dos botoes. -falta
+8- alinha a parte dos nomes no header para o centro. -falta
+9- ajustar a buscar na lupa. -falta
+10- backend para o e-commerce. ainda faolta algumas coisas - ok
+11-  falta ajustar tambem o login pelo google e facebook. "nao sera aplicado nessa versao de teste pois demanda outras ferramentas" -falta
+12-  uniformizar as fontes e cores, background.  -falta
+13- falta implementar o uso do cupom no carrinho de compras, isso inclui atualizar o carrinho para fazer o calculo de desconto da % do cupom. -falta
+14- footer esta padrao em todas as paginas- ok
+15- header esta padrao em  todas as paginas -
+16- lista de produtos -ok
+17- filtro de produtos pronto na pagina de categorias -ok
+18-
