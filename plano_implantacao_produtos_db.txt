@@ -1,4 +1,4 @@
-# PLANO DE IMPLEMENTAÇÃO: PRODUTOS DINÂMICOS NO BANCO DE DADOS
+# PLANO DE IMPLEMENTAÇÃO: PRODUTOS DINÂMICOS NO BANCO DE DADOS ;  implementado
 
 Este documento descreve o passo a passo de como migraremos o sistema atual (produtos estáticos no HTML) para um sistema dinâmico, onde os produtos são salvos no banco de dados SQLite, servidos pela API Node.js e renderizados pelo JavaScript no Frontend.
 
@@ -89,7 +89,7 @@ O problema ocorre devido ao "caminho relativo" informado no atributo `href`. O c
 
 
 
-plano de implantaçap do sistema de cupom;
+plano de implantaçap do sistema de cupom; nao implementar agora 
 
 1. Atualizar o Cálculo do Carrinho (cartService.js e CartContext.js)
 Atualmente, o carrinho soma o preço dos itens e gera o valor total. Precisamos modificar isso para que o estado do carrinho aceite um Desconto:
