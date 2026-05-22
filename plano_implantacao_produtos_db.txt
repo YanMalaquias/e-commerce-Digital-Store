@@ -86,3 +86,26 @@ O problema ocorre devido ao "caminho relativo" informado no atributo `href`. O c
 *   **Nos arquivos dentro de `src/pages/` (ex: `cart.html`, `Page-Producto.html`):** O caminho deve voltar uma pasta para acessar a raiz do `src` e depois ir para `assets`. O correto é:
     `<link rel="icon" href="../assets/logo_digital_store.svg" type="image/png">`
     *(Obs: se já estiver assim e o ícone não atualizar, é necessário limpar o cache do navegador com Ctrl + F5, pois favicons costumam ficar retidos no cache).*
+
+
+
+plano de implantaçap do sistema de cupom;
+
+1. Atualizar o Cálculo do Carrinho (cartService.js e CartContext.js)
+Atualmente, o carrinho soma o preço dos itens e gera o valor total. Precisamos modificar isso para que o estado do carrinho aceite um Desconto:
+
+Adicionar uma variável para guardar o cupom ativo (ex: appliedCoupon = 'AIRJORDAN20').
+Alterar a função que calcula o total (getCartState) para calcular o Subtotal, subtrair a porcentagem do desconto (ex: 20%) e gerar o Total Final.
+###2. Criar o campo no HTML do Carrinho/Checkout(cart.html) O usuário copia o código do botão na Home, mas precisa de um lugar para colar esse código na hora de pagar.
+
+Devemos adicionar um campo de texto (<input type="text">) e um botão "Aplicar" na tela do Carrinho (Resumo do Pedido).
+3. Criar a lógica de Validação (CartPage.js)
+Criar uma função que, ao clicar em "Aplicar", verifica se o texto digitado é igual a 'AIRJORDAN20'.
+Se for válido, ele avisa o CartContext para aplicar 20% de desconto no total da compra.
+Se for inválido, exibe uma mensagem de erro ("Cupom inválido").
+4. Atualizar o Visual do Resumo da Compra
+Na tela onde aparece o valor total, precisaremos adicionar uma nova linha dinâmica mostrando o desconto. Exemplo:
+
+Subtotal: R$ 500,00
+Desconto (20%): - R$ 100,00
+Total: R$ 400,00
