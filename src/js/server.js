@@ -14,7 +14,9 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000';
 
 // Configurações
 app.use(cors({
-    origin: CORS_ORIGIN,
+    origin: function (origin, callback) {
+        callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
