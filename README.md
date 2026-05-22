@@ -122,7 +122,8 @@ Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
 
 ## 📝 Histórico de Atualizações
 
-*   **Recente:** Atualização na barra de navegação principal (`navigation-header`), com a remoção da aba "Produtos" para simplificar a interface e melhorar a experiência do usuário.
+*   **Recente:** Resolução de problemas de CORS na API para facilitar testes locais independentemente da porta utilizada pelo Frontend, e estabilização completa do fluxo de Autenticação (Login, Cadastro e Recuperação de Senha).
+*   **Anterior:** Atualização na barra de navegação principal (`navigation-header`), com a remoção da aba "Produtos" para simplificar a interface e melhorar a experiência do usuário.
 
 ---
 
