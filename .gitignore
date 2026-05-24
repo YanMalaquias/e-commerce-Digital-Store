@@ -6,3 +6,5 @@ npm-debug.log
 .DS_Store  
 .env  
 dist/
+comentarios_extras.txt
+plano_implantacao_produtos_db.txt
