@@ -9,11 +9,14 @@
   <img src="https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
 </p>
 
-Um projeto full-stack para uma loja virtual (e-commerce) chamado **Digital Store**, focado na venda de tênis, roupas e acessórios esportivos. O projeto apresenta um design moderno e responsivo, focado na experiência do usuário e na organização modular do código, agora acompanhado de uma robusta API RESTful para gerenciar usuários, autenticação e dados via banco de dados.
+Um projeto full-stack para uma loja virtual (e-commerce) chamado **Digital Store**, focado na venda de tênis, roupas e acessórios esportivos. O projeto apresenta um design moderno e responsivo, focado na experiência do usuário e na organização modular do código, acompanhado de uma API RESTful para gerenciar usuários, autenticação e dados.
+
+Este projeto também faz parte de uma **Atividade Avaliativa em Interação Humano-Computador (IHC)**, focada no Desenvolvimento, Avaliação e Redesign de Aplicações Web utilizando o **Modelo DECIDE**.
 
 ---
 
 ## 📑 Índice
+- [Avaliação de IHC e Redesign](#-avaliação-de-ihc-e-redesign)
 - [Funcionalidades](#-funcionalidades)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
@@ -21,37 +24,45 @@ Um projeto full-stack para uma loja virtual (e-commerce) chamado **Digital Store
 
 ---
 
+## 🔍 Avaliação de IHC e Redesign
+
+O processo de desenvolvimento desta interface passou por etapas rigorosas de avaliação em IHC:
+1. **Desenvolvimento Inicial:** Criação do protótipo contemplando 5 funcionalidades principais (Catálogo, Carrinho, Checkout, Autenticação e Histórico de Pedidos).
+2. **Avaliação (Modelo DECIDE):** O projeto foi submetido à avaliação por pares, identificando problemas de usabilidade, clareza e eficiência.
+3. **Redesign:** Com base no relatório de avaliação, a interface foi iterada para melhorar a jornada do usuário.
+    * **Melhoria Recente:** Implementação de uma **Busca Global Centralizada**. A barra de pesquisa agora redireciona e filtra corretamente os produtos no catálogo a partir de qualquer página, reduzindo a carga cognitiva e facilitando a localização de itens.
+
+---
+
 ## 🌟 Funcionalidades
 
 ### Frontend
-*   **Design Responsivo e Moderno:** Navegação intuitiva com barra de pesquisa, links rápidos e design limpo adaptável a qualquer dispositivo (Desktop, Tablet e Mobile).
-*   **Apresentação de Produtos:** Carrossel interativo de ofertas, coleções em destaque e listagem de produtos com filtro de busca.
+*   **Busca Global Integrada:** Barra de pesquisa em todo o site que redireciona automaticamente para o catálogo filtrando por nome, tipo ou marca do produto.
+*   **Design Responsivo e Moderno:** Navegação intuitiva adaptável a qualquer dispositivo (Desktop, Tablet e Mobile).
+*   **Apresentação de Produtos:** Carrossel interativo de ofertas, coleções em destaque e listagem de produtos com filtros de categorias e tempo real.
 *   **Carrinho de Compras Dinâmico:** Adição, remoção e alteração de quantidade de itens com recálculo automático de subtotais e totais.
-*   **Fluxo de Checkout Completo:** Tela de confirmação com seleção de itens do carrinho e abas dinâmicas de opções de pagamento (Cartão de Crédito, Pix e Boleto).
-*   **Perfil e Histórico de Pedidos:** Área logada (`Meus Pedidos`) com gerenciamento de informações pessoais e endereço de entrega, além da listagem em tempo real de pedidos realizados.
+*   **Fluxo de Checkout Completo:** Tela de confirmação com seleção de itens do carrinho e abas dinâmicas de opções de pagamento.
+*   **Perfil e Histórico de Pedidos:** Área logada (`Meus Pedidos`) com gerenciamento de informações pessoais e endereço de entrega.
 
 ### Backend e Segurança
 *   **API RESTful:** Construída com Node.js e Express.js para lidar com o fluxo de dados da aplicação.
-*   **Banco de Dados Relacional:** Utiliza SQLite3 para persistência de informações de usuários e transações da loja.
+*   **Banco de Dados Relacional:** Utiliza SQLite3 para persistência de informações de usuários e transações.
 *   **Autenticação e Autorização:** Sistema seguro utilizando JWT (JSON Web Tokens) e criptografia de senhas com `bcryptjs`.
-*   **Proteção de Rotas:** Configuração de *Rate Limit* para evitar abusos (ex: proteção contra ataques de força bruta em rotas de login) e rígido controle de acesso via regras de CORS.
+*   **Proteção de Rotas:** Configuração de *Rate Limit* e rígido controle de acesso via regras de CORS.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
 
 ### Front-end
-*   **HTML5 & CSS3:** Estruturação semântica e estilização avançada utilizando variáveis CSS e fontes personalizadas (Inter via Google Fonts).
+*   **HTML5 & CSS3:** Estruturação semântica e estilização avançada utilizando variáveis CSS.
 *   **JavaScript (Vanilla ES Modules):** Lógica modular garantindo máxima performance.
-*   **Bootstrap 5:** Framework CSS auxiliar na estabilidade dos componentes responsivos.
-*   **Swiper JS:** Biblioteca leve para criação de carrosséis modernos.
+*   **Bootstrap 5 & Swiper JS:** Auxílio responsivo e criação de carrosséis modernos.
 
 ### Back-end
 *   **Node.js & Express.js:** Ambiente de execução e framework da API.
-*   **SQLite3:** Banco de dados relacional embarcado no próprio arquivo, não necessitando setups complexos de SGBDs de terceiros.
-*   **Bcryptjs:** Utilizado na geração de hash criptografado das senhas de usuários.
-*   **JSON Web Token (JWT):** Segurança robusta baseada em tokens para persistir sessões de acesso do usuário.
-*   **Dotenv:** Gerenciamento local de variáveis de ambiente.
+*   **SQLite3:** Banco de dados relacional embarcado no próprio arquivo.
+*   **Bcryptjs & JSON Web Token (JWT):** Segurança, criptografia e persistência de sessões.
 
 ---
 
@@ -62,35 +73,28 @@ A arquitetura do projeto isola e organiza as responsabilidades entre Front e Bac
 ```text
 ├── database.sqlite         # Arquivo do banco de dados SQLite (criado pelo back)
 ├── package.json            # Dependências e comandos Node.js
-├── package-lock.json       # Tranca as versões exatas das dependências npm
 ├── public/                 # Imagens gerais de produtos e banners (Assets brutos)
 ├── src/                    
 │   ├── assets/             # Ícones e logos usados no layout (SVG e PNG)
 │   ├── css/                # Folhas de estilo modulares divididas por páginas e blocos
-│   ├── js/                 # Lógicas JavaScript do projeto
+│   ├── js/                 # Lógicas JavaScript do projeto (Frontend e Backend)
 │   │   ├── server.js       # Arquivo principal da API backend (Express)
-│   │   ├── database.js     # Configuração e tabelas do SQLite3
-│   │   ├── components/     # Componentes de UI dinâmica do frontend
-│   │   ├── contexts/       # Lógicas de estado (ex: Sessão de Login, Carrinho)
-│   │   ├── core/           # Núcleo da arquitetura (EventBus, Storage local)
-│   │   └── utils/          # Funções utilitárias de formatação e requests HTTP
+│   │   └── page/           # Lógicas específicas de cada página (ex: ProductList.js)
 │   └── pages/              # Páginas complementares (Carrinho, Lista, etc.)
 ├── Homepage.html           # Página principal (Entry point do sistema - Front)
-└── README.md               # Você está aqui - Documentação
+└── README.md               # Documentação do projeto
 ```
 
 ---
 
 ## 🛠️ Como Executar o Projeto Localmente
 
-Por possuir arquitetura *Full-Stack*, o funcionamento completo do fluxo de e-commerce necessita que a API esteja executando no ambiente Node para responder às requisições do Front-end.
-
 ### Pré-requisitos
 Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
 
 ### Passo a Passo
 
-1. **Clone o repositório** para a sua máquina local:
+1. **Clone o repositório**:
    ```bash
    git clone https://github.com/SEU_USUARIO/Projeto-Digital-Store.git
    ```
@@ -100,7 +104,7 @@ Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
    cd Projeto-Digital-Store
    ```
 
-3. **Instale as dependências do servidor** utilizando NPM:
+3. **Instale as dependências do servidor**:
    ```bash
    npm install
    ```
@@ -109,24 +113,19 @@ Certifique-se de ter o **[Node.js](https://nodejs.org/)** instalado.
    ```bash
    node src/js/server.js
    ```
-   *(A API subirá conectando-se ao `database.sqlite` e aguardará as requisições do frontend, geralmente via porta `3001` ou a configurada no `.env`)*
 
-5. **Inicie o Front-end e acesse a Loja**:
-   Para visualizar a interface em conjunto com as requisições API simuladas:
-   - Utilizando o **VS Code**, instale a extensão **Live Server**.
-   - Abra o arquivo raiz `Homepage.html` no seu editor.
-   - Clique com o botão direito no código ou no arquivo e selecione **"Open with Live Server"**.
-   - O projeto será aberto automaticamente no seu navegador padrão (geralmente sob `http://127.0.0.1:5500`).
+5. **Inicie o Front-end**:
+   Abra o arquivo raiz `Homepage.html` no seu navegador ou utilize a extensão **Live Server** no VS Code.
 
 ---
 
 ## 📝 Histórico de Atualizações
 
-*   **Recente:** Resolução de problemas de CORS na API para facilitar testes locais independentemente da porta utilizada pelo Frontend, e estabilização completa do fluxo de Autenticação (Login, Cadastro e Recuperação de Senha).
-*   **Anterior:** Atualização na barra de navegação principal (`navigation-header`), com a remoção da aba "Produtos" para simplificar a interface e melhorar a experiência do usuário.
+*   **Implementação de IHC / Redesign:** Adição de roteamento de busca na barra de pesquisa (redirecionamento com parâmetros na URL e filtros automáticos na lista de produtos).
+*   **Backend:** Resolução de problemas de CORS e estabilização completa do fluxo de Autenticação.
 
 ---
 
 <p align="center">
-  <b>Digital Store</b> foi desenvolvido com foco em performance, organização estrutural e escalabilidade modular. 🚀
+  <b>Digital Store</b> foi desenvolvido com foco em performance, organização estrutural e princípios consolidados de Interação Humano-Computador. 🚀
 </p>

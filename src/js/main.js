@@ -92,8 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filtro/Busca de Produtos
     const searchInput = document.getElementById('search-input');
+    const searchIcon = document.querySelector('.search-icon');
+
+    function executeGlobalSearch() {
+        if (!searchInput) return;
+        const searchTerm = searchInput.value.trim();
+        if (!searchTerm) return;
+
+        // Determinar o caminho correto para a página de produtos dependendo de onde estamos
+        const isRoot = !window.location.pathname.includes('/src/pages/');
+        const targetUrl = isRoot ? 'src/pages/ProductListdesign.html' : 'ProductListdesign.html';
+
+        window.location.href = `${targetUrl}?search=${encodeURIComponent(searchTerm)}`;
+    }
 
     if (searchInput) {
+        // Redirecionar ao pressionar Enter
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                executeGlobalSearch();
+            }
+        });
+
+        // Filtragem em tempo real na página atual
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase().trim();
             
@@ -119,6 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    }
+
+    if (searchIcon) {
+        searchIcon.style.cursor = 'pointer';
+        searchIcon.addEventListener('click', executeGlobalSearch);
     }
 
     // Scroll suave ao clicar no botão "Ver Ofertas"

@@ -81,17 +81,36 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Lê o termo de busca da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchTerm = urlParams.get('search') ? urlParams.get('search').toLowerCase() : '';
+
         // Filtra a lista de produtos (Array)
         const filteredProducts = productsDB.filter(product => {
             const matchBrand = selectedFilters.brand.length === 0 || selectedFilters.brand.includes(product.brand);
             const matchCategory = selectedFilters.category.length === 0 || selectedFilters.category.includes(product.category);
             const matchGender = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.gender);
             
-            return matchBrand && matchCategory && matchGender; // Só passa se bater com TODOS os grupos
+            const matchSearch = searchTerm === '' || 
+                                product.name.toLowerCase().includes(searchTerm) || 
+                                product.type.toLowerCase().includes(searchTerm) || 
+                                product.brand.toLowerCase().includes(searchTerm);
+
+            return matchBrand && matchCategory && matchGender && matchSearch; // Só passa se bater com TODOS os grupos e com a busca
         });
 
         // Atualiza a tela com o resultado final
         renderProducts(filteredProducts);
+    }
+
+    // Preencher o campo de busca com o termo da URL ao carregar a página
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialSearchTerm = urlParams.get('search');
+    if (initialSearchTerm) {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.value = initialSearchTerm;
+        }
     }
 
     // Ouve os cliques nos filtros
