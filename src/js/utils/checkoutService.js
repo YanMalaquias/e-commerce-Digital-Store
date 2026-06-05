@@ -1,12 +1,13 @@
+// checkoutService.js
 import Storage from '../core/Storage.js';
 import {
     calculateCartTotals,
     getCartItemKey,
     normalizeCartItem
 } from './cartService.js';
-
+// Chave de armazenamento para a sessão de checkout
 const CHECKOUT_SESSION_KEY = 'digital-store-checkout-session';
-
+// Métodos de pagamento disponíveis
 export const PAYMENT_METHODS = {
     CARD: 'card',
     PIX: 'pix',

@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             attachCartEventListeners(cart);
         }
     }
-
+// Função que renderiza a página de checkout com detalhes do pedido e opções de pagamento
     function renderCheckoutPage() {
         const checkoutDetails = document.getElementById('checkout-details');
         const checkoutSummary = document.getElementById('checkout-summary');
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
-
+// Renderiza o resumo do pedido no lado direito, mostrando os itens selecionados, total e botão para confirmar o pedido
         checkoutSummary.innerHTML = `
             <div class="cart-summary-section">
                 <div class="cart-summary">
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         attachCheckoutEventListeners();
     }
-
+// Função que renderiza os campos de pagamento específicos com base na forma de pagamento selecionada
     function renderPaymentFields(method) {
         if (method === PAYMENT_METHODS.CARD) {
             return `
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return '';
     }
-
+// Função que anexa os event listeners aos elementos do carrinho, como checkboxes, botões de quantidade, remoção e seleção de variações
     function attachCartEventListeners(cart) {
         // Selecionar/Deselecionar Todos
         const selectAllCheckbox = document.getElementById('select-all-items');
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = URLS.ORDERS || '../pages/MeusPedidos.html'; // Redireciona para Meus Pedidos
         });
     }
-
+// Função que atualiza o contador de itens no header com base no estado do carrinho
     function updateCartHeaderDisplay(cartState) {
         const counter = document.getElementById('cart-counter');
         if (counter) {

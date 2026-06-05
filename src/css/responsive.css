@@ -1,3 +1,4 @@
+/* src/css/responsive.css */
 @media (max-width: 1024px) {
     .nav-header {
         padding: 15px 20px;
@@ -8,7 +9,7 @@
         max-width: 1024px;
     }
 }
-
+/* Ajustes para telas menores, como tablets e smartphones */
 @media (max-width: 768px) {
     .nav-header {
         flex-wrap: wrap;
@@ -29,7 +30,7 @@
         gap: 10px;
     }
 }
-
+/* Ajustes para telas muito pequenas, como smartphones */
 @media (max-width: 480px) {
     .nav-header {
         flex-direction: column;

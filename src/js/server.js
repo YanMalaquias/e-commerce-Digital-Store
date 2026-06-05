@@ -1,5 +1,6 @@
+// Carrega as variáveis de ambiente do arquivo .env
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
-
+// Importa as dependências necessárias
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -145,7 +146,7 @@ app.post('/api/forgot-password', (req, res) => {
         res.json({ message: 'Código enviado para seu email.' });
     });
 });
-
+// Rota para resetar a senha usando o código
 app.post('/api/reset-password', (req, res) => {
     const { email, code, newPassword } = req.body;
     

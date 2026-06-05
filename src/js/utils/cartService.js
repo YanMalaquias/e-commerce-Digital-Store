@@ -1,3 +1,4 @@
+// cartService.js
 import Storage from '../core/Storage.js';
 
 const CART_STORAGE_KEY = 'digital-store-cart';

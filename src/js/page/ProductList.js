@@ -1,3 +1,4 @@
+    // src/js/page/ProductList.js
 import { addElementToCart, getCartState } from '../utils/cartService.js';
 
 // Simulando os produtos que virão do banco de dados no futuro (Fases 1 e 2 do Plano)
@@ -19,7 +20,7 @@ const productsDB = [
     { id: 15, name: "Adidas NMD - Unisex", type: "Tênis", brand: "adidas", category: "casual", gender: "unisex", price: 160, oldPrice: 200, discount: "20% OFF", image: "../assets/Mask group.png" },
     { id: 16, name: "Puma Smash - Masculino", type: "Tênis", brand: "puma", category: "casual", gender: "masculino", price: 95, oldPrice: 120, discount: "20% OFF", image: "../assets/Mask group.png" }
 ];
-
+// A lógica de renderização e filtragem dos produtos, além da integração com o carrinho, está toda aqui
 document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("product-grid");
     const checkboxes = document.querySelectorAll(".filter-checkbox");

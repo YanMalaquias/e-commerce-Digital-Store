@@ -25,7 +25,7 @@ class AuthContextClass {
             console.error('Email e senha são obrigatórios');
             return false;
         }
-
+//valida o formato do email
         try {
             const response = await fetch('http://localhost:3001/api/login', {
                 method: 'POST',
@@ -40,7 +40,7 @@ class AuthContextClass {
                 console.error('Erro de login:', error.message);
                 return false;
             }
-
+// Armazena o token e as informações do usuário na sessão
             const data = await response.json();
             
             Storage.set('auth_token', data.token);
@@ -56,7 +56,7 @@ class AuthContextClass {
                 isLoggedIn: true,
                 loginAt: new Date().toISOString()
             });
-            
+            // Publica o evento de login para que outros componentes possam reagir a ele
             eventBus.publish('auth:login', { user: userWithoutPassword });
             this.notifySubscribers();
             return true;

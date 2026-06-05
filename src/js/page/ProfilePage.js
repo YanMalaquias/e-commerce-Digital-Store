@@ -1,21 +1,21 @@
+// ProfilePage.js
 import AuthContext from '../contexts/AuthContext.js';
 import CartContext from '../contexts/CartContext.js';
 import { URLS } from '../config/urls.js';
 import { getUserProfile, getUserOrders, updateUserProfile, formatFullAddress } from '../utils/userService.js';
-
+// Página de perfil do usuário, incluindo visualização e edição de dados pessoais e histórico de pedidos
 document.addEventListener('DOMContentLoaded', () => {
-    // -------------------------------------------------------------------------
     // 1. CARREGAMENTO DINÂMICO DE HEADER E FOOTER
-    // -------------------------------------------------------------------------
+    
     function loadHeader() {
         const header = document.getElementById('main-header');
         if (!header) return;
-
+        // Obtém os estados atuais de autenticação e carrinho para renderizar o header corretamente
         const authState = AuthContext.getAuthState();
         const cartState = CartContext.getCartState();
         const buttonText = authState.isAuthenticated ? `Olá, ${authState.user.firstname}` : 'Entrar / Cadastrar';
         const cartCounterOpacity = cartState.totalItems > 0 ? '1' : '0';
-        
+        // Renderiza o header com base no estado de autenticação e carrinho
         header.innerHTML = `
             <nav class="nav-header">
                 <a class="digital-store-header" href="${URLS.HOME}">
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </ol>
             </div>
         `;
-
+        // Configura o evento de clique para o botão de login/logout
         const loginButton = document.getElementById('btn-header-auth');
         if (loginButton) {
             loginButton.addEventListener('click', (e) => {
@@ -61,9 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // -------------------------------------------------------------------------
+        
     // 2. RENDERIZAÇÃO DO CONTEÚDO PRINCIPAL (ABAS DE PERFIL E PEDIDOS)
-    // -------------------------------------------------------------------------
     function renderProfilePage() {
         const authState = AuthContext.getAuthState();
         const mainContainer = document.querySelector('.pedidos-container');
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tabPedidos.style.background = 'transparent';
             tabPedidos.style.fontWeight = 'normal';
         }
-
+        // Configura os eventos de clique para alternar entre as abas
         tabDados.addEventListener('click', (e) => {
             e.preventDefault();
             resetTabs();
@@ -126,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tabDados.style.fontWeight = 'bold';
             renderDadosTab();
         });
-
+// Configura os eventos de clique para alternar entre as abas
         tabPedidos.addEventListener('click', (e) => {
             e.preventDefault();
             resetTabs();
@@ -140,13 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
         tabPedidos.click();
     }
 
-    // -------------------------------------------------------------------------
-    // 3. ABA: MEUS DADOS
-    // -------------------------------------------------------------------------
+        
+        // 3. ABA: MEUS DADOS
     function renderDadosTab() {
         const content = document.getElementById('tab-content');
         if (!content) return;
-
+        // Obtém os dados do perfil do usuário para preencher o formulário
         const profile = getUserProfile();
 
         content.innerHTML = `
@@ -214,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </form>
             </div>
         `;
-
+        // Configura o evento de submissão do formulário para atualizar os dados do perfil
         document.getElementById('form-profile').addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -237,15 +235,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // -------------------------------------------------------------------------
-    // 4. ABA: MEUS PEDIDOS
-    // -------------------------------------------------------------------------
+     
+    // 4. ABA: MEUS PEDIDOS - Exibe o histórico de pedidos do usuário ou uma mensagem caso não haja pedidos
     function renderPedidosTab() {
         const content = document.getElementById('tab-content');
         if (!content) return;
 
         const orders = getUserOrders();
-
+// Se não houver pedidos, exibe uma mensagem amigável incentivando a explorar a loja
         if (orders.length === 0) {
             content.innerHTML = `
                 <div style="background: #fff; padding: 40px; border-radius: 8px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
@@ -256,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             return;
         }
-
+// Se houver pedidos, renderiza cada um com detalhes como número do pedido, data, status, total e itens comprados
         const ordersHtml = orders.map(order => {
             const date = new Date(order.createdAt).toLocaleDateString('pt-BR');
             return `
@@ -301,9 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // -------------------------------------------------------------------------
+    
     // 5. INICIALIZAÇÃO E LISTENERS
-    // -------------------------------------------------------------------------
+    
     function updateCartHeaderDisplay(cartState) {
         const counter = document.getElementById('cart-counter');
         if (counter) {
@@ -311,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
             counter.style.opacity = cartState.totalItems > 0 ? '1' : '0';
         }
     }
-
+// Variáveis para armazenar as funções de cancelamento dos listeners
     let unsubscribeCart = null;
     let unsubscribeAuth = null;
 
@@ -325,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderProfilePage(); // Re-renderiza a página caso o status de login mude
         });
     }
-
+// Limpa os listeners ao sair da página para evitar vazamentos de memória
     window.addEventListener('beforeunload', () => {
         if (unsubscribeCart) unsubscribeCart();
         if (unsubscribeAuth) unsubscribeAuth();

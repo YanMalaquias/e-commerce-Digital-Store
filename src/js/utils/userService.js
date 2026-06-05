@@ -1,5 +1,6 @@
+// userService.js
 import Storage from '../core/Storage.js';
-
+// Chaves legadas para compatibilidade com versões anteriores do aplicativo
 const LEGACY_USER_PROFILE_KEY = 'digital-store-user-profile';
 const LEGACY_USER_ORDERS_KEY = 'digital-store-user-orders';
 

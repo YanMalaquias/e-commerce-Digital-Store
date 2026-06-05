@@ -1,3 +1,4 @@
+// app.js 
 import initAuthModal from './components/AuthModal.js';
 import AuthContext from './contexts/AuthContext.js';
 

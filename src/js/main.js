@@ -14,21 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
             this.classList.add('active');
         });
     });
-
+// Funções auxiliares para obter as opções selecionadas
     function getSelectedSize() {
         const sizeButton = document.querySelector('.sizes .size.active');
         return sizeButton ? sizeButton.dataset.size : null;
     }
-
+// Função para obter a cor selecionada
     function getSelectedColor() {
         const colorButton = document.querySelector('.colors .color.active');
         return colorButton ? colorButton.dataset.color : null;
     }
-
+// Função para obter o elemento do contador do carrinho
     function getCartCounterElement() {
         return document.getElementById('cart-counter');
     }
-
+// Função para atualizar o contador do carrinho
     function updateCartCounter(cartState) {
         const cartCounter = getCartCounterElement();
         if (!cartCounter) return;
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartCounter.textContent = cartState.totalItems;
         cartCounter.style.opacity = cartState.totalItems > 0 ? '1' : '0';
     }
-
+// Função para aplicar feedback visual ao clicar no botão de compra
     function applyBuyFeedback(button) {
         const originalText = button.textContent;
         const originalBackground = button.style.backgroundColor;
@@ -52,20 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
             button.style.color = originalColor;
         }, 1000);
     }
-
+// Carregar os módulos do carrinho e configurar os eventos relacionados
     Promise.all([
         import('./contexts/CartContext.js'),
         import('./utils/cartService.js')
     ]).then(([cartModule, serviceModule]) => {
         const CartContext = cartModule.default;
         const { extractCartItemFromElement, DEFAULT_CART_SELECTORS } = serviceModule;
-
+// Inscrever a função de atualização do contador para ser chamada sempre que o estado do carrinho mudar
         CartContext.subscribe(updateCartCounter);
         updateCartCounter(CartContext.getCartState());
-
+// Função para lidar com o clique no botão de compra
         function handleBuyClick(button, event) {
             event.preventDefault();
-
+// Encontrar o elemento do produto mais próximo ao botão clicado
             const productCard = button.closest('.featured-item, .div-products-line-item, .product-card, .product-info, .details');
             if (!productCard) return;
 
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             applyBuyFeedback(button);
         }
-
+// Configurar o evento de clique para os botões de compra usando delegação de eventos
         document.addEventListener('click', (event) => {
             const buyButton = event.target.closest('.buy-button, .featured-button');
             if (!buyButton) return;
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.style.display = titleText.includes(searchTerm) ? 'block' : 'none';
                 }
             });
-
+            // Filtragem para a seção de produtos
             productItems.forEach(item => {
                 const title = item.querySelector('.products-p2');
                 const category = item.querySelector('.products-p1');
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
+    // Configurar o clique no ícone de busca para executar a pesquisa
     if (searchIcon) {
         searchIcon.style.cursor = 'pointer';
         searchIcon.addEventListener('click', executeGlobalSearch);
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const cupom = 'AIRJORDAN20';
-
+// Tenta copiar o cupom para a área de transferência
             navigator.clipboard.writeText(cupom).then(() => {
                 alert(`Parabéns! O cupom de 20% OFF (${cupom}) foi ativado e copiado para sua área de transferência!`);
 

@@ -1,6 +1,4 @@
-/* ========================================
-   ESTILOS DO CARRINHO (PADRÃO DIGITAL STORE)
-   ======================================== */
+/* ESTILOS DO CARRINHO (PADRÃO DIGITAL STORE) */
 
 .cart-page-container {
     max-width: 1200px;
@@ -24,7 +22,7 @@
     flex-direction: column;
     gap: 30px;
 }
-
+/* Em telas maiores, exibe os itens e o resumo lado a lado */
 @media (min-width: 992px) {
     .cart-content-wrapper {
         flex-direction: row;

@@ -1,11 +1,12 @@
+// carrossel.js
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Página carregada.');
-
+// Seleciona os elementos do carrossel
   const carouselTrack = document.querySelector('.carousel-track');
   const images = Array.from(document.querySelectorAll('.carousel-track img')); 
   const indicators = document.querySelectorAll('.indicator');
   const carouselContainer = document.querySelector('.carousel-images');
-
+// Variáveis para controle do estado do carrossel
   let currentIndex = 0;
   let autoSlideInterval;
   let carouselTimeout = null;
