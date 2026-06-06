@@ -1,5 +1,9 @@
 import eventBus from '../core/EventBus.js';
 import Storage from '../core/Storage.js';
+
+// 🛑  URL do  Render 
+const API_BASE_URL = 'https://e-commerce-digital-store.onrender.com'; 
+
 //contexto de autenticação
 class AuthContextClass {
     constructor() {
@@ -27,7 +31,8 @@ class AuthContextClass {
         }
 //valida o formato do email
         try {
-            const response = await fetch('http://localhost:3001/api/login', {
+            // Alterado para usar a URL do Render dinamicamente
+            const response = await fetch(`${API_BASE_URL}/api/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -72,7 +77,8 @@ class AuthContextClass {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/register', {
+            // Alterado para usar a URL do Render dinamicamente
+            const response = await fetch(`${API_BASE_URL}/api/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
