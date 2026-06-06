@@ -174,6 +174,9 @@ app.post('/api/reset-password', (req, res) => {
     });
 });
 
+app.get('/', (req, res) => {
+  res.send('O servidor está rodando perfeitamente!');
+});
 
 // Inicia o servidor
 app.listen(PORT, () => {
