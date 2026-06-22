@@ -1,5 +1,5 @@
     // src/js/page/ProductList.js
-import { addElementToCart, getCartState } from '../utils/cartService.js';
+import { addElementToCart, getCartState, removeItemFromCart } from '../utils/cartService.js';
 
 // Simulando os produtos que virão do banco de dados no futuro (Fases 1 e 2 do Plano)
 const productsDB = [
@@ -44,6 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Pega o estado atual do carrinho para saber quais produtos já estão nele
+        const cartState = getCartState();
+        const cartItemIds = new Set(cartState.items.map(item => String(item.id)));
+
         products.forEach(product => {
             // Monta as tags condicionais (só exibe desconto/preço velho se existirem)
             const discountTag = product.discount ? `<span class="products-p-off">${product.discount}</span>` : "";
@@ -64,6 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${oldPriceTag}
                             <span class="products-p4">$ ${product.price}</span>
                         </div>
+                        <button
+                            class="${cartItemIds.has(String(product.id)) ? 'remove-from-cart-btn' : 'add-to-cart-btn'}"
+                            style="width: 100%; padding: 10px; border: ${cartItemIds.has(String(product.id)) ? '1px solid #C92071' : 'none'}; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; background-color: ${cartItemIds.has(String(product.id)) ? '#fdf2f8' : '#C92071'}; color: ${cartItemIds.has(String(product.id)) ? '#C92071' : 'white'}; display: flex; align-items: center; justify-content: center; height: 40px;">
+                            ${cartItemIds.has(String(product.id)) ? 'Remover do Carrinho' : 'Adicionar ao Carrinho'}
+                        </button>
                     </div>
                 </div>
             `;
@@ -123,11 +132,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Escuta os cliques em qualquer produto da grade para adicionar ao carrinho
     grid.addEventListener("click", (e) => {
+        // Verifica se o clique foi em um dos botões de ação do carrinho
         const card = e.target.closest(".div-products-line-item");
-        if (card) {
+        if (!card) return;
+
+        const productId = card.dataset.id;
+
+        if (e.target.classList.contains('add-to-cart-btn')) {
             addElementToCart(card);
-            updateCartCounter();
-            alert("Produto adicionado ao carrinho com sucesso!"); 
+            alert("Produto adicionado ao carrinho!");
+        } else if (e.target.classList.contains('remove-from-cart-btn')) {
+            removeItemFromCart(productId);
+            alert("Produto removido do carrinho!");
         }
+        
+        applyFilters(); // Re-renderiza a lista para atualizar os botões
+        updateCartCounter();
     });
 });

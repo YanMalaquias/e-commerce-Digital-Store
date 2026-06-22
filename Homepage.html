@@ -259,7 +259,7 @@
 
     <!-- Script dedicado ao funcionamento do Carrinho na Homepage -->
     <script type="module">
-        import { addElementToCart, getCartState } from './src/js/utils/cartService.js';
+        import { addElementToCart, getCartState, removeItemFromCart } from './src/js/utils/cartService.js'; // Certifique-se que removeItemFromCart está sendo importado
         
         // Simulando os produtos em alta com nomes únicos e IDs diferentes
         const productsDB = [
@@ -274,6 +274,7 @@
         ];
 
         document.addEventListener("DOMContentLoaded", () => {
+            const grid = document.getElementById("home-product-grid");
             const counter = document.getElementById("cart-counter");
             
             function updateCartCounter() {
@@ -285,20 +286,26 @@
             }
             updateCartCounter();
 
-            const grid = document.getElementById("home-product-grid");
-            if (grid) {
-                // Renderiza os produtos na tela
+            function renderHomeProducts() {
+                if (!grid) return;
+                
+                const cartState = getCartState();
+                const cartItemIds = new Set(cartState.items.map(item => String(item.id)));
+
                 grid.innerHTML = "";
                 productsDB.forEach(product => {
                     const discountTag = product.discount ? `<span class="products-p-off">${product.discount}</span>` : "";
                     const oldPriceTag = product.oldPrice ? `<span class="products-p3"><s>$${product.oldPrice}</s></span>` : "";
+                    const isInCart = cartItemIds.has(String(product.id));
+                    const buttonText = isInCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho';
+                    const buttonClass = isInCart ? 'remove-from-cart-btn' : 'add-to-cart-btn';
 
                     const cardHTML = `
                         <div class="div-products-line-item" data-id="${product.id}">
                             <div class="div-products-line-item1">
                                 ${discountTag}
                                 <div class="div-products-img-div">
-                                    <img class="products-img" src="${product.image}" alt="${product.name}">
+                                    <img class="products-img" src="${product.image}" alt="${product.name}" style="pointer-events: none;">
                                 </div>
                             </div>
                             <div class="div-products-line-item2">
@@ -308,24 +315,29 @@
                                     ${oldPriceTag}
                                     <span class="products-p4">$ ${product.price}</span>
                                 </div>
+                                <button class="${buttonClass}" style="width: 100%; padding: 10px; border: ${isInCart ? '1px solid #C92071' : 'none'}; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; background-color: ${isInCart ? '#fdf2f8' : '#C92071'}; color: ${isInCart ? '#C92071' : 'white'}; display: flex; align-items: center; justify-content: center; height: 40px;">${buttonText}</button>
                             </div>
                         </div>
                     `;
                     grid.insertAdjacentHTML("beforeend", cardHTML);
                 });
             }
+            renderHomeProducts();
 
-            const secaoProdutos = document.getElementById("secao-produtos");
-            if (secaoProdutos) {
-                secaoProdutos.addEventListener("click", (e) => {
-                    const card = e.target.closest(".div-products-line-item");
-                    if (card) {
-                        addElementToCart(card);
-                        updateCartCounter();
-                        alert("Produto adicionado ao carrinho com sucesso!");
-                    }
-                });
-            }
+            grid.addEventListener("click", (e) => {
+                const card = e.target.closest(".div-products-line-item");
+                if (!card) return;
+
+                const productId = card.dataset.id;
+
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    addElementToCart(card);
+                } else if (e.target.classList.contains('remove-from-cart-btn')) {
+                    removeItemFromCart(productId);
+                }
+                updateCartCounter();
+                renderHomeProducts(); // Re-renderiza para atualizar o botão
+            });
         });
     </script>
 </body>
