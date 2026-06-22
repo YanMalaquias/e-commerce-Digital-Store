@@ -1,4 +1,7 @@
 {
     "livePreview.defaultPreviewPath": "/Homepage.html",
-    "liveServer.settings.port": 5502
+    "liveServer.settings.port": 5502,
+    "githubPullRequests.ignoredPullRequestBranches": [
+        "vercel/install-vercel-speed-insights-vjicax"
+    ]
 }
