@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <img class="products-img" src="${product.image}" alt="${product.name}">
                         </div>
                     </div>
-                    <div class="div-products-line-item2">
+                    <div class="div-products-line-item2" style="display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
                         <p class="products-p1">${product.type}</p>
                         <p class="products-p2">${product.name}</p>
                         <div class="products-price">
