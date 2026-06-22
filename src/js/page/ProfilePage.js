@@ -148,67 +148,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const profile = getUserProfile();
 
         content.innerHTML = `
-            <div style="background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <h2 style="margin-bottom: 20px; font-size: 24px;">Minhas Informações</h2>
-                <form id="form-profile" style="display: flex; flex-direction: column; gap: 20px;">
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px;">
+            <div style="background: #fff; padding: 60px; border-radius: 8px; box-shadow: 5px 23px 130px rgba(0,0,0,0.05);">
+                <h2 style="margin-bottom: 20px; font-size: 30px;">Minhas Informações</h2>
+                <form id="form-profile">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Nome</label>
-                            <input type="text" id="prof-firstname" value="${profile.firstname || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;" required>
+                            <input type="text" id="prof-firstname" value="${profile.firstname || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;" required>
                         </div>
-                        <div style="flex: 1; min-width: 200px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Sobrenome</label>
-                            <input type="text" id="prof-surname" value="${profile.surname || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;" required>
+                            <input type="text" id="prof-surname" value="${profile.surname || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;" required>
                         </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 200px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">E-mail</label>
-                            <input type="email" id="prof-email" value="${profile.email || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;" readonly title="E-mail de login não pode ser alterado aqui">
+                            <input type="email" id="prof-email" value="${profile.email || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #eeeeee; cursor: not-allowed;" readonly title="O e-mail de login não pode ser alterado.">
                         </div>
-                        <div style="flex: 1; min-width: 200px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Telefone</label>
-                            <input type="text" id="prof-phone" value="${profile.phone || ''}" placeholder="(00) 00000-0000" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="prof-phone" value="${profile.phone || ''}" placeholder="(00) 00000-0000" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                    </div>
-
-                    <h3 style="margin-top: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px;">Endereço de Entrega</h3>
-                    
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 2; min-width: 200px;">
+                        <div style="grid-column: 1 / -1;"><h3 style="margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 10px;">Endereço de Entrega</h3></div>
+                        <div style="grid-column: 1 / 3;">
                             <label style="display: block; margin-bottom: 5px; color: #666;">Rua / Logradouro</label>
-                            <input type="text" id="addr-street" value="${profile.address?.street || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-street" value="${profile.address?.street || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                        <div style="flex: 1; min-width: 100px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Número</label>
-                            <input type="text" id="addr-number" value="${profile.address?.number || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-number" value="${profile.address?.number || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                    </div>
-
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 150px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Bairro</label>
-                            <input type="text" id="addr-neighborhood" value="${profile.address?.neighborhood || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-neighborhood" value="${profile.address?.neighborhood || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                        <div style="flex: 1; min-width: 150px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Cidade</label>
-                            <input type="text" id="addr-city" value="${profile.address?.city || ''}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-city" value="${profile.address?.city || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 150px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Estado</label>
-                            <input type="text" id="addr-state" value="${profile.address?.state || ''}" placeholder="Ex: SP" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-state" value="${profile.address?.state || ''}" placeholder="Ex: SP" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
-                        <div style="flex: 1; min-width: 150px;">
+                        <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">CEP</label>
-                            <input type="text" id="addr-zipCode" value="${profile.address?.zipCode || ''}" placeholder="00000-000" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="text" id="addr-zipCode" value="${profile.address?.zipCode || ''}" placeholder="00000-000" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;">
                         </div>
                     </div>
-
-                    <button type="submit" style="background-color: #C92071; color: #fff; border: none; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;">Salvar Alterações</button>
+                    <button type="submit" style="background-color: #C92071; color: #fff; border: none; padding: 9px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 30px; width: 100%; max-width: 250px;">Salvar Alterações</button>
                 </form>
             </div>
         `;
