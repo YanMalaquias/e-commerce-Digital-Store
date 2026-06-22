@@ -115,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalSelected = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const totalItemsSelected = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
 
+            // Verifica se todos os itens selecionados possuem tamanho e cor
+            const allSelectedItemsHaveVariants = selectedItems.every(item => item.selectedSize && item.selectedColor);
+            const isCheckoutDisabled = selectedItems.length === 0 || !allSelectedItemsHaveVariants;
+
             // Renderizar resumo do carrinho
             cartSummary.innerHTML = `
                 <div class="cart-summary-section">
@@ -128,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Total:</span>
                             <span>R$ ${totalSelected.toFixed(2)}</span>
                         </div>
-                        <button class="btn-checkout" id="btn-proceed-checkout" ${selectedItems.length === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>Continuar</button>
+                        <button class="btn-checkout" id="btn-proceed-checkout" ${isCheckoutDisabled ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>Continuar</button>
                     </div>
                 </div>
             `;
@@ -334,11 +338,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 
-                if (selectedItemIds.size === 0) {
-                    alert('Selecione pelo menos um item para continuar.');
+                const selectedItems = cart.filter(item => selectedItemIds.has(item.id));
+
+                if (selectedItems.length === 0) {
+                    alert('Por favor, selecione pelo menos um item para continuar.');
                     return;
                 }
                 
+                // Validação de cor e tamanho
+                const itemsWithoutVariants = selectedItems.filter(item => !item.selectedSize || !item.selectedColor);
+
+                if (itemsWithoutVariants.length > 0) {
+                    const itemNames = itemsWithoutVariants.map(item => item.name).join(', ');
+                    alert(`Por favor, selecione o tamanho e a cor para os seguintes itens: ${itemNames}.`);
+                    
+                    // Adiciona um destaque visual nos itens que precisam de seleção
+                    document.querySelectorAll('.cart-item').forEach(el => el.style.border = 'none');
+                    itemsWithoutVariants.forEach(item => {
+                        const itemElement = document.querySelector(`.cart-item[data-item-index='${cart.indexOf(item)}']`);
+                        if (itemElement) itemElement.style.border = '2px solid #e53e3e';
+                    });
+                    return; // Impede a continuação
+                }
+
                 currentStep = 'CHECKOUT';
                 renderView();
             });

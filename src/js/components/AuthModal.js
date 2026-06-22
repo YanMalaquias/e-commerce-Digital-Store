@@ -25,13 +25,6 @@ function createModalElement() {
                 <form id="auth-form">
                     <!-- Dynamic fields will be injected here -->
                 </form>
-                
-                <div class="auth-divider">
-                    <span>ou entre com</span>
-                </div>
-                
-                <button class="auth-social-btn" id="google-login-btn"><img src="src/assets/Logo Google.svg" alt="Google" onerror="this.src='';this.alt='G'"> Google</button>
-                <button class="auth-social-btn" id="facebook-login-btn"><img src="src/assets/Logo Facebook.svg" alt="Facebook" onerror="this.src='';this.alt='F'"> Facebook</button>
             </div>
         </div>
     `;
@@ -133,30 +126,6 @@ function setupModalEventListeners() {
     const form = document.getElementById('auth-form');
     form.addEventListener('submit', handleAuthSubmit);
 
-    // Adiciona eventos aos botões sociais
-    const googleBtn = document.getElementById('google-login-btn');
-    const facebookBtn = document.getElementById('facebook-login-btn');
-    //google login
-    if (googleBtn) {
-        googleBtn.addEventListener('click', async () => {
-            const success = await AuthContext.loginWithGoogle();
-            if (success) {
-                AuthContext.closeAuthModal();
-                window.location.reload();
-            }
-        });
-    }
-    //facebook login
-    if (facebookBtn) {
-        facebookBtn.addEventListener('click', async () => {
-            const success = await AuthContext.loginWithFacebook();
-            if (success) {
-                AuthContext.closeAuthModal();
-                window.location.reload();
-            }
-        });
-    }
-    
     // ✓ Marcar como setup concluído
     existingListeners.setupDone = true;
 }
