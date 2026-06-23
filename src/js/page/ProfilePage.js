@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">E-mail</label>
-                            <input type="email" id="prof-email" value="${profile.email || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #eeeeee; cursor: not-allowed;" readonly title="O e-mail de login não pode ser alterado.">
+                            <input type="email" id="prof-email" value="${profile.email || ''}" style="width: 100%; padding: 9px; border: 1px solid #ddd; border-radius: 4px; background-color: #f5f5f5;" required>
                         </div>
                         <div>
                             <label style="display: block; margin-bottom: 5px; color: #666;">Telefone</label>
@@ -205,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newProfile = {
                 firstname: document.getElementById('prof-firstname').value,
                 surname: document.getElementById('prof-surname').value,
+                email: document.getElementById('prof-email').value,
                 phone: document.getElementById('prof-phone').value,
                 address: {
                     street: document.getElementById('addr-street').value,
