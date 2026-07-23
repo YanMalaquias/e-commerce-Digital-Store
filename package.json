@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node src/js/server.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.3",
