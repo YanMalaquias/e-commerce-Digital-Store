@@ -1,4 +1,4 @@
-import AuthContext from '../contexts/AuthContext.js';
+import AuthContext, { API_BASE_URL } from '../contexts/AuthContext.js';
 import eventBus from '../core/EventBus.js';
 
 let activeTab = 'login';
@@ -176,7 +176,7 @@ async function handleAuthSubmit(e) {
                 if (errorMsg) errorMsg.textContent = 'As senhas não conferem.';
             } else {
                 try {
-                    const response = await fetch('http://localhost:3001/api/reset-password', {
+                    const response = await fetch(`${API_BASE_URL}/api/reset-password`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -238,7 +238,7 @@ async function handleSendResetCode() {
     }
     
     try {
-        const response = await fetch('http://localhost:3001/api/forgot-password', {
+        const response = await fetch(`${API_BASE_URL}/api/forgot-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })

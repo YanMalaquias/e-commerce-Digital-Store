@@ -3,20 +3,45 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 // Importa as dependências necessárias
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('./database');
 const rateLimit = require('express-rate-limit');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const SECRET_KEY = process.env.SECRET_KEY || 'sua_chave_secreta_super_segura';
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000';
 
+// Configuração do nodemailer
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE === 'true', // true para 465, false para outras portas
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
 // Configurações
+app.use(helmet());
 app.use(cors({
     origin: function (origin, callback) {
-        callback(null, true);
+        const allowedOrigins = [
+            CORS_ORIGIN,
+            'http://localhost:5500',
+            'http://127.0.0.1:5500',
+            'https://e-commerce-digital-store.onrender.com'
+        ];
+
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -36,6 +61,13 @@ const registerLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 3,
     message: { message: 'Muitas tentativas de registro. Tente novamente mais tarde.' }
+});
+
+// Limitar reset de senha a 3 tentativas a cada 15 minutos
+const resetPasswordLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 3,
+    message: { message: 'Muitas tentativas de reset de senha. Tente novamente mais tarde.' }
 });
 
 // Rota de Cadastro
@@ -125,7 +157,7 @@ app.post('/api/login', loginLimiter, (req, res) => {
 // Reset de senha
 const resetCodes = {};
 
-app.post('/api/forgot-password', (req, res) => {
+app.post('/api/forgot-password', resetPasswordLimiter, (req, res) => {
     const { email } = req.body;
     
     if (!email) {
@@ -141,13 +173,25 @@ app.post('/api/forgot-password', (req, res) => {
         const code = Math.floor(100000 + Math.random() * 900000).toString();
         resetCodes[email] = { code, expiresAt: Date.now() + 15 * 60 * 1000 };
         
-        console.log(`Reset code for ${email}: ${code}`);
-        
-        res.json({ message: 'Código enviado para seu email.' });
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Recuperação de Senha - Digital Store',
+            text: `Seu código de recuperação de senha é: ${code}\n\nEste código é válido por 15 minutos.`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Erro ao enviar e-mail:', error);
+                return res.status(500).json({ message: 'Erro ao enviar e-mail.' });
+            }
+            console.log(`Reset code email sent for ${email}: ${info.response}`);
+            res.json({ message: 'Código enviado para seu email.' });
+        });
     });
 });
 // Rota para resetar a senha usando o código
-app.post('/api/reset-password', (req, res) => {
+app.post('/api/reset-password', resetPasswordLimiter, (req, res) => {
     const { email, code, newPassword } = req.body;
     
     if (!resetCodes[email]) {
