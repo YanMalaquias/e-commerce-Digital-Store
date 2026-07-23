@@ -2,7 +2,7 @@ import eventBus from '../core/EventBus.js';
 import Storage from '../core/Storage.js';
 
 // 🛑  URL do  Render 
-const API_BASE_URL = 'https://e-commerce-digital-store.onrender.com'; 
+export const API_BASE_URL = 'https://e-commerce-digital-store.onrender.com';
 
 //contexto de autenticação
 class AuthContextClass {
