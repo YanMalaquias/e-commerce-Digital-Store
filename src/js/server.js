@@ -8,11 +8,23 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('./database');
 const rateLimit = require('express-rate-limit');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const SECRET_KEY = process.env.SECRET_KEY || 'sua_chave_secreta_super_segura';
 const CORS_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:3000';
+
+// Configuração do nodemailer
+const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE === 'true', // true para 465, false para outras portas
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 // Configurações
 app.use(helmet());
@@ -154,9 +166,21 @@ app.post('/api/forgot-password', resetPasswordLimiter, (req, res) => {
         const code = Math.floor(100000 + Math.random() * 900000).toString();
         resetCodes[email] = { code, expiresAt: Date.now() + 15 * 60 * 1000 };
         
-        console.log(`Reset code for ${email}: ${code}`);
-        
-        res.json({ message: 'Código enviado para seu email.' });
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Recuperação de Senha - Digital Store',
+            text: `Seu código de recuperação de senha é: ${code}\n\nEste código é válido por 15 minutos.`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Erro ao enviar e-mail:', error);
+                return res.status(500).json({ message: 'Erro ao enviar e-mail.' });
+            }
+            console.log(`Reset code email sent for ${email}: ${info.response}`);
+            res.json({ message: 'Código enviado para seu email.' });
+        });
     });
 });
 // Rota para resetar a senha usando o código
