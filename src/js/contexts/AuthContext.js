@@ -1,8 +1,13 @@
 import eventBus from '../core/EventBus.js';
 import Storage from '../core/Storage.js';
 
-// 🛑  URL do  Render 
-export const API_BASE_URL = 'https://e-commerce-digital-store.onrender.com';
+// Detecta se está rodando localmente para definir a URL base da API
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+
+// 🛑 URL base dinâmica (Local ou Render)
+export const API_BASE_URL = isLocal
+    ? 'http://localhost:3001'
+    : 'https://e-commerce-digital-store.onrender.com';
 
 //contexto de autenticação
 class AuthContextClass {
